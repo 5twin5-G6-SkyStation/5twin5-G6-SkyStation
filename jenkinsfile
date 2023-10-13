@@ -52,7 +52,7 @@ pipeline{
             steps {
 
 
-  sh 'mvn clean package deploy:deploy-file -DgroupId=com.esprit.examen -DartifactId=tpAchatProject -Dversion=1.2 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://localhost:8081/repository/maven-releases/ -Dfile=target/tpAchatProject-1.2.jar'
+  sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
 
 
             }
@@ -61,7 +61,7 @@ pipeline{
 stage('Build Docker Image') {
                       steps {
                           script {
-                            sh 'docker build -t amirovvv/spring-app-twin:first .'
+                            sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6 .'
                           }
                       }
                   }
@@ -75,7 +75,7 @@ stage('Build Docker Image') {
 	    
 	                      stage('Push Docker Image') {
                                         steps {
-                                   sh 'docker push amirovvv/spring-app-twin:first'
+                                   sh 'docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6'
                                             }
 		  }
 
