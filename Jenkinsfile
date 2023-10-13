@@ -42,7 +42,7 @@ pipeline{
         stage('Code Quality Check via SonarQube') {
             steps{
 
-             		sh "  mvn clean verify sonar:sonar -Dsonar.projectKey=cicd -Dsonar.host.url=http://172.10.0.140:9000/-Dsonar.login=sqp_5b9561fb0e72e73c93bfa5b5f966ec6dba0322b4 "
+             		sh "  mvn clean verify sonar:sonar -Dsonar.projectKey=cicd -Dsonar.host.url=http://172.10.0.140:9000/-Dsonar.login=sqp_78546e9433790ef3d4aecfc5f9c3ee02ae28c3c8 "
 
             }
         }
@@ -52,7 +52,7 @@ pipeline{
             steps {
 
 
-  sh "mvn clean verify sonar:sonar -Dsonar.projectKey=cicd  -Dsonar.projectName='cicd' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_5b9561fb0e72e73c93bfa5b5f966ec6dba0322b4"
+  sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
 
             }
         }
