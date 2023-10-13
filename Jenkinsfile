@@ -42,7 +42,7 @@ pipeline{
         stage('Code Quality Check via SonarQube') {
             steps{
 
-             		sh "  mvn clean verify sonar:sonar -Dsonar.projectKey=cicd -Dsonar.host.url=http://172.10.0.140:9000/-Dsonar.login=sqp_78546e9433790ef3d4aecfc5f9c3ee02ae28c3c8 "
+             		sh " mvn clean verify sonar:sonar -Dsonar.projectKey=cicd -Dsonar.projectName='cicd' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_967f7ce856cba9eaaff2c1d53a4c9da867b1b7eb"
 
             }
         }
@@ -67,7 +67,6 @@ stage('Build Docker Image') {
 
                   stage('login dockerhub') {
                                         steps {
-                                     // sh 'echo dckr_pat_-SnwrdC_ELsL6it2JT6cgIcAlrs | docker login -u azizbenhaha --password-stdin'
 				sh 'docker login -u azizoss --password dckr_pat_9wYLJvVisxnXRtwPxxHrxFZt_Dw'
                                             }
 		  }
