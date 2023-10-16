@@ -31,14 +31,6 @@ pipeline {
         }
     }
 }
- stages {
-        stage('Build') {
-            steps {
-                // Étape de construction (par exemple, compilation du projet)
-                sh 'mvn clean install'  // Exécute la construction du projet avec Maven
-            }
-        }
-
 
         stage('Unit Tests') {
             steps {
