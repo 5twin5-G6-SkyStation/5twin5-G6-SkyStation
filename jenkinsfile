@@ -1,11 +1,50 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Hello') {
+        stage('Getting project from Git') {
             steps {
-                echo 'Hello World!'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: 'widedgharbi-5twin5-G6']],
+                    userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]
+                ])
             }
         }
+
+        stage('Cleaning the project') {
+            steps {
+                sh "mvn clean -B -DskipTests"
+            }
+        }
+
+        stage('Maven Compile') {
+            steps {
+                sh "mvn compile -B -DskipTests"
+            }
+        }
+
+       stage('SonarQube Analysis') {
+    steps {
+        script {
+            sh "mvn sonar:sonar -Dsonar.login=sqa_cf8b4a3ecbc989e3d7eb79de89c2caea8e807ce6"
+        }
+    }
+}
+ stages {
+        stage('Build') {
+            steps {
+                // Étape de construction (par exemple, compilation du projet)
+                sh 'mvn clean install'  // Exécute la construction du projet avec Maven
+            }
+        }
+
+
+        stage('Unit Tests') {
+            steps {
+                sh "mvn test"
+            }
+        }
+        
     }
 }
