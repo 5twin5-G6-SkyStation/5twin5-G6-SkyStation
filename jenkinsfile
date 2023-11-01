@@ -24,13 +24,13 @@ pipeline {
             }
         }
 
-       stage('SonarQube Analysis') {
-    steps {
-        script {
-            sh "mvn sonar:sonar -Dsonar.login=sqa_cf8b4a3ecbc989e3d7eb79de89c2caea8e807ce6"
+      stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('admin') {
+                    sh 'mvn sonar:sonar -Dsonar.login=sonar'
+                }
+            }
         }
-    }
-}
 
         stage('Unit Tests') {
             steps {
