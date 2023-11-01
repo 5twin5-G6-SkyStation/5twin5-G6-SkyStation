@@ -23,5 +23,12 @@ stage('SonarQube Analysis') {
 
             }
         }
+
+stage('Unit Tests') {
+            steps{
+               		 sh "mvn test "
+            }
+        }
+
 }
 }
