@@ -20,8 +20,7 @@ pipeline {
 stage('SonarQube Analysis') {
     steps {
         script {
-            // Utiliser le nom d'utilisateur et le mot de passe corrects pour l'analyse SonarQube
-            withSonarQubeEnv('admin', 'sonar') {
+            withSonarQubeEnv('admin', 'admin') {
                 sh 'mvn sonar:sonar'
             }
         }
