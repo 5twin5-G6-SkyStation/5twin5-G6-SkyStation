@@ -60,7 +60,7 @@ pipeline{
 stage('Build Docker Image') {
                       steps {
                           script {
-                            sh 'docker build -t azizoss/spring-app-twin:first .'
+                            sh 'docker build -t azizoss/spring-app-twin:second .'
                           }
                       }
                   }
@@ -73,7 +73,7 @@ stage('Build Docker Image') {
 	    
 	                      stage('Push Docker Image') {
                                         steps {
-                                   sh 'docker push azizoss/spring-app-twin:first'
+                                   sh 'docker push azizoss/spring-app-twin:second'
                                             }
 		  }
 

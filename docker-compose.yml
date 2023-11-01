@@ -19,7 +19,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image:  azizoss/spring-app-twin:first
+    image:  azizoss/spring-app-twin:second
     restart: on-failure
     env_file: ./.env
     ports:
