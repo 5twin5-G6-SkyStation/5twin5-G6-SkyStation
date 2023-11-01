@@ -16,16 +16,16 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv('admin', 'sonar') {
-                        sh 'mvn sonar:sonar'
-                    }
-                }
+       
+stage('SonarQube Analysis') {
+    steps {
+        script {
+            // Utiliser le nom d'utilisateur et le mot de passe corrects pour l'analyse SonarQube
+            withSonarQubeEnv('VotreNomUtilisateurSonar', 'VotreMotDePasseSonar') {
+                sh 'mvn sonar:sonar'
             }
         }
-
-    
     }
+}
+}
 }
