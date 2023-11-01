@@ -21,7 +21,7 @@ stage('SonarQube Analysis') {
     steps {
         script {
             // Utiliser le nom d'utilisateur et le mot de passe corrects pour l'analyse SonarQube
-            withSonarQubeEnv('VotreNomUtilisateurSonar', 'VotreMotDePasseSonar') {
+            withSonarQubeEnv('admin', 'sonar') {
                 sh 'mvn sonar:sonar'
             }
         }
