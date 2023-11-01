@@ -67,7 +67,7 @@ stage('Build Docker Image') {
 
                   stage('login dockerhub') {
                                         steps {
-				sh 'docker login -u azizoss --password dckr_pat_9wYLJvVisxnXRtwPxxHrxFZt_Dw'
+				sh 'docker login -u azizoss --password dckr_pat_v9UjMySVbpzx2SmxlGfY7MsMik8'
                                             }
 		  }
 	    
