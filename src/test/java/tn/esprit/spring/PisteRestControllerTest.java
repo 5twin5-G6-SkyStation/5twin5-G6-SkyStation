@@ -1,93 +1,104 @@
-package tn.esprit.spring;
-
-import static org.junit.Assert.*;
-import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.spring.controllers.PisteRestController;
 import tn.esprit.spring.entities.Piste;
-import tn.esprit.spring.repositories.IPisteRepository;
-import tn.esprit.spring.services.IPisteServices;
 import tn.esprit.spring.services.PisteServicesImpl;
-
 import java.util.List;
 
 @SpringBootTest
-@TestMethodOrder(OrderAnnotation.class)
-@ExtendWith(MockitoExtension.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PisteRestControllerTest {
 
     @InjectMocks
-    IPisteRepository iPisteRepository;
+    private PisteRestController pisteRestController;
 
     @Mock
-    @Autowired
-    PisteServicesImpl pisteServices;
+    private PisteServicesImpl pisteServices;
 
     @Test
     @Order(1)
     public void testAddPiste() {
+        // Créez une nouvelle piste pour le test
         Piste newPiste = new Piste();
         newPiste.setNamePiste("Piste Name");
         newPiste.setLength(1000);
         newPiste.setSlope(20);
 
-        Piste addedPiste = pisteServices.addPiste(newPiste);
+        // Définissez le comportement simulé de pisteServices.addPiste
+        Mockito.when(pisteServices.addPiste(newPiste)).thenReturn(newPiste);
+
+        // Appelez la méthode que vous voulez tester
+        Piste addedPiste = pisteRestController.addPiste(newPiste);
+
+        // Assurez-vous que la piste ajoutée n'est pas nulle
         Assertions.assertNotNull(addedPiste);
     }
 
     @Test
     @Order(2)
     public void testRetrieveAllPistes() {
-        List<Piste> listPistes = pisteServices.retrieveAllPistes();
-        Assertions.assertTrue(listPistes.size() > 0);
+        // Créez une liste de pistes simulée pour le test
+        List<Piste> simulatedPistes = List.of(new Piste(), new Piste());
+
+        // Définissez le comportement simulé de pisteServices.retrieveAllPistes
+        Mockito.when(pisteServices.retrieveAllPistes()).thenReturn(simulatedPistes);
+
+        // Appelez la méthode que vous voulez tester
+        List<Piste> listPistes = pisteRestController.retrieveAllPistes();
+
+        // Assurez-vous que la liste de pistes n'est pas vide
+        Assertions.assertFalse(listPistes.isEmpty());
     }
 
     @Test
     @Order(3)
     public void testRetrievePiste() {
-        // Create a new Piste object
-        Piste newPiste = new Piste();
-        newPiste.setNamePiste("Piste Name");
-        newPiste.setLength(1000);
-        newPiste.setSlope(20);
+        // Créez une nouvelle piste simulée pour le test
+        Piste simulatedPiste = new Piste();
+        simulatedPiste.setNamePiste("Piste Name");
+        simulatedPiste.setLength(1000);
+        simulatedPiste.setSlope(20);
 
-        // Mock the behavior of pisteServices to return the newPiste when retrievePiste is called
-        Mockito.when(pisteServices.retrievePiste(Mockito.anyLong())).thenReturn(newPiste);
+        // Définissez le comportement simulé de pisteServices.retrievePiste
+        Mockito.when(pisteServices.retrievePiste(Mockito.anyLong())).thenReturn(simulatedPiste);
 
-        // Call the method you want to test
-        Piste retrievedPiste = pisteServices.retrievePiste(1L); // Use an appropriate pisteId
+        // Appelez la méthode que vous voulez tester
+        Piste retrievedPiste = pisteRestController.retrievePiste(1L); // Utilisez un identifiant de piste approprié
 
-        // Assert that the retrievedPiste is not null
+        // Assurez-vous que la piste récupérée n'est pas nulle
         Assertions.assertNotNull(retrievedPiste);
     }
-
 
     @Test
     @Order(4)
     public void testDeletePiste() {
+        // Créez une nouvelle piste pour le test
         Piste newPiste = new Piste();
         newPiste.setNamePiste("Piste Name");
         newPiste.setLength(1000);
         newPiste.setSlope(20);
 
-        Piste addedPiste = pisteServices.addPiste(newPiste);
+        // Définissez le comportement simulé de pisteServices.addPiste
+        Mockito.when(pisteServices.addPiste(newPiste)).thenReturn(newPiste);
+
+        // Appelez la méthode pour ajouter une piste
+        Piste addedPiste = pisteRestController.addPiste(newPiste);
         Long pisteId = addedPiste.getNumPiste();
 
-        pisteServices.removePiste(pisteId);
+        // Définissez le comportement simulé de pisteServices.removePiste
+        Mockito.when(pisteServices.removePiste(pisteId)).thenReturn(true);
 
-        Piste deletedPiste = pisteServices.retrievePiste(pisteId);
-        Assertions.assertNull(deletedPiste);
+        // Appelez la méthode pour supprimer la piste
+        boolean isDeleted = pisteRestController.removePiste(pisteId);
+
+        // Assurez-vous que la piste est supprimée avec succès
+        Assertions.assertTrue(isDeleted);
     }
 }
