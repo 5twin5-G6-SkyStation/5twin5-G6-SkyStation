@@ -26,15 +26,6 @@ pipeline {
             }
         }
 
-    }
-
-    post {
-        unstable {
-            stage('Unit Tests') {
-                steps {
-                    sh 'mvn test'
-                }
-            }
-        }
+    
     }
 }
