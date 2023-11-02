@@ -6,8 +6,7 @@ pipeline {
             steps {
                 // Récupérer le code de votre projet depuis GitHub
                 checkout([$class: 'GitSCM', branches: [[name: '*/widedgharbi-5twin5-G6']],
-                extensions: [],
-                userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']])
+                        userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
             }
         }
 
