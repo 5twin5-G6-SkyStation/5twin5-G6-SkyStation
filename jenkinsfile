@@ -35,13 +35,5 @@ pipeline {
                		 sh "mvn test "
             }
         }
-
-         
-        stage('Nexus Deployment') {
-            steps {
-                sh "mvn -B deploy -DskipTests" // Execute 'mvn deploy' and skip tests
-            }
-        }
-
     }
 }
