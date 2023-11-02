@@ -8,18 +8,24 @@ pipeline {
                         userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
             }
         }
+
           stage('Cleaning the project') {
             steps{
                 	sh "mvn -B -DskipTests clean  "
             }
         } 
+
+        stage('Artifact Construction') {
+            steps{
+                	sh "mvn -B -DskipTests package "
+            }
+        }
+
          stage('Code Quality Check via SonarQube') {
             steps{
 
              		sh "  mvn clean verify sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.token=sqa_04dfa3490ead9e84031a69874a7301ba50e253e5 "
-
             }
-        }
-         
+        }    
     }
 }
