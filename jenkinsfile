@@ -22,7 +22,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                sh "mvn sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.login=sqa_7cb738af45c73d4903f550434b3c86c573b1b4f4 "
+                sh "mvn sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.login=sqa_7cb738af45c73d4903f550434b3c86c573b1b4f4"
             }
         }
     }
