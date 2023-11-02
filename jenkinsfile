@@ -18,5 +18,11 @@ pipeline {
                 }
             }
         }
+
+        stage('SonarQube') {
+            steps {
+             		sh "mvn clean verify sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.token=sqa_2bf543d25ffc402fda33f644c540091ba8f8f401"
+            }
+        }
     }
 }
