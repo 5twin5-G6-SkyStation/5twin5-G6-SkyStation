@@ -1,37 +1,28 @@
-pipeline{
+pipeline {
     agent any
 
-
-
     stages {
-
-
         stage('Getting project from Git') {
-            steps{
-      			checkout([$class: 'GitSCM', branches: [[name: '*/widedgharbi-5twin5-G6']],
-			extensions: [],
-			userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
+            steps {
+                // Récupérer le code de votre projet depuis GitHub
+                checkout([$class: 'GitSCM', branches: [[name: '*/widedgharbi-5twin5-G6']],
+                extensions: [],
+                userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']])
             }
         }
 
-
-       stage('Maven Clean and Compile') {
+        stage('Maven Clean and Compile') {
             steps {
                 // Exécuter les commandes Maven clean et compile
                 sh 'mvn clean compile'
             }
         }
 
-
-
         stage('Code Quality Check via SonarQube') {
-            steps{
-
-             		sh "  mvn clean verify sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.token=sqa_88fa8b98142511d84c3edb264158a35d9dacbc65"
-
+            steps {
+                // Exécuter l'analyse SonarQube avec le mot de passe
+                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.token=sqa_88fa8b98142511d84c3edb264158a35d9dacbc65"
             }
         }
-
-
     }
 }
