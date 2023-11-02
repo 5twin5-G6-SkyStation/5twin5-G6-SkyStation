@@ -15,17 +15,10 @@ pipeline{
         }
 
 
-       stage('Cleaning the project') {
-            steps{
-                	sh "mvn -B -DskipTests clean  "
-            }
-        }
-
-
-
-        stage('Artifact Construction') {
-            steps{
-                	sh "mvn -B -DskipTests package "
+       stage('Maven Clean and Compile') {
+            steps {
+                // Exécuter les commandes Maven clean et compile
+                sh 'mvn clean compile'
             }
         }
 
