@@ -8,9 +8,17 @@ pipeline {
             }
         }
 
-        stage('Maven Clean & Compile') {
-            steps {
-                sh 'mvn clean compile -B -DskipTests'
+       stage('Cleaning the project') {
+            steps{
+                	sh "mvn -B -DskipTests clean  "
+            }
+        }
+
+
+
+        stage('Artifact Construction') {
+            steps{
+                	sh "mvn -B -DskipTests package "
             }
         }
 
