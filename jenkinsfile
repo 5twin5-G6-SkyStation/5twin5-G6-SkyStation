@@ -9,21 +9,9 @@ pipeline {
             }
         }
 
-        stage('Maven Clean and Compile') {
+         stage('Maven Clean and Compile') {
             steps {
-                // Configure the Maven cache
-                script {
-                    def mvnHome = tool name: 'Maven', type: 'hudson.tasks.Maven$MavenInstallation'
-                    def mavenLocalRepo = "${env.WORKSPACE}/.repository"  // Define the local repository path
-
-                    // Set the MAVEN_OPTS environment variable to use a custom local repository
-                    env.MAVEN_OPTS = "-Dmaven.repo.local=${mavenLocalRepo}"
-
-                    // Execute the Maven build
-                    withMaven(maven: mvnHome, mavenLocalRepo: mavenLocalRepo) {
-                        sh 'mvn clean compile'
-                    }
-                }
+                sh 'mvn clean compile'
             }
         }
          stage('Code Quality Check via SonarQube') {
