@@ -17,7 +17,7 @@ pipeline {
 
           stage('Code Quality Check via SonarQube') {
             steps{
-             		sh "  mvn clean verify sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.token=sqa_04dfa3490ead9e84031a69874a7301ba50e253e5 "
+             		sh "  mvn clean verify sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.token=sqa_2bf543d25ffc402fda33f644c540091ba8f8f401 "
             }
         }    
     }
