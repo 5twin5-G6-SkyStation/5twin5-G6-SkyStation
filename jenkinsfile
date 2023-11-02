@@ -10,7 +10,11 @@ pipeline {
             }
         }
 
-        
+        stage('Maven Clean & Compile') {
+            steps {
+                sh 'mvn clean compile -B -DskipTests'
+            }
+        }
 
        
 stage('SonarQube Analysis') {
