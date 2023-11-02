@@ -16,5 +16,13 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
+
+         stage('SonarQube Analysis') {
+            steps {
+                // Lancer l'analyse de la qualité du code avec SonarQube
+                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName=station -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.login=sqp_8e9a302e044659aa4e70fb23a533f11c275a6d1b"
+            }
+        }
+
     }
 }
