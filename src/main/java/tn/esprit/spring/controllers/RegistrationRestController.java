@@ -15,10 +15,12 @@ import java.util.List;
 @Tag(name = "\uD83D\uDDD3️Registration Management")
 @RestController
 @RequestMapping("/registration")
-@RequiredArgsConstructor
+
 public class RegistrationRestController {
     private final IRegistrationServices registrationServices;
-
+    public RegistrationRestController(IRegistrationServices registrationServices) {
+        this.registrationServices = registrationServices;
+    }
     @Operation(description = "Add Registration and Assign to Skier")
     @PutMapping("/addAndAssignToSkier/{numSkieur}")
     public Registration addAndAssignToSkier(@RequestBody Registration registration,
