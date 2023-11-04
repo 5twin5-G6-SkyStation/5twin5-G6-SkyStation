@@ -36,9 +36,10 @@ pipeline {
             }
         }
         stage('Publish to Nexus') {
-             steps {
-            sh 'mvn clean deploy:deploy-file -DgroupId=tn.esprit.ds -DartifactId=SkiStationProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -Dfile=target/gestion-station-ski-1.0.jar -DrepositoryId=deploymentRepo -Durl=http://172.17.0.1:8081/repository/maven-releases/'
-        }
-      }
+            steps {
+                      sh 'mvn clean deploy:deploy-file -DgroupId=tn.esprit.ds -DartifactId=SkiStationProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -Dfile=target/gestion-station-ski-1.0.jar'
+    }
+}
+
     }
 }
