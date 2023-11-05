@@ -8,7 +8,7 @@ pipeline{
 
         stage('Getting project from Git') {
             steps{
-      			checkout([$class: 'GitSCM', branches: [[name: '*/amirjebari-5twin5-G6']],
+      			checkout([$class: 'GitSCM', branches: [[name: '*/Mohamedaziztrabelsi-5twin5-G6']],
 			extensions: [],
 			userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
             }
@@ -60,7 +60,7 @@ pipeline{
 stage('Build Docker Image') {
                       steps {
                           script {
-                            sh 'docker build -t azizoss/spring-app-twin:second .'
+                            sh 'docker build -t azizoss/spring-app-twin:latest .'
                           }
                       }
                   }
