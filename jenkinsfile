@@ -6,11 +6,14 @@ pipeline{
     stages {
 
 
-        stage('Getting project from Git') {
-            steps{
-      			checkout([$class: 'GitSCM', branches: [[name: '*/hadilkacem-5twin5-G6']],
-			extensions: [],
-			userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
+        stages {
+        stage('Checkout from Git') {
+            steps {
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/widedgharbi-5twin5-G6']],
+                    userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]
+                ])
             }
         }
 
