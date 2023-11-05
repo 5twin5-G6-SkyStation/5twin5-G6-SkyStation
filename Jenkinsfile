@@ -73,7 +73,7 @@ stage('Build Docker Image') {
 	    
 	                      stage('Push Docker Image') {
                                         steps {
-                                   sh 'docker push azizoss/spring-app-twin:second'
+                                   sh 'docker push azizoss/spring-app-twin:latest'
                                             }
 		  }
 
@@ -95,22 +95,9 @@ stage('Build Docker Image') {
 
 	    
         post {
-		/*success{
-		mail bcc: '', body: '''Dear Med Aziz, 
-we are happy to inform you that your pipeline build was successful. 
-Great work ! 
--Jenkins Team-''', cc: '', from: 'mohamedaziz.benhaha@esprit.tn', replyTo: '', subject: 'Build Finished - Success', to: 'mohamedaziz.benhaha@esprit.tn'
-		}
 		
-		failure{
-mail bcc: '', body: '''Dear Med Aziz, 
-we are sorry to inform you that your pipeline build failed. 
-Keep working ! 
--Jenkins Team-''', cc: '', from: 'mohamedaziz.benhaha@esprit.tn', replyTo: '', subject: 'Build Finished - Failure', to: 'mohamedaziz.benhaha@esprit.tn'
-		}*/
-
        always {
-		//emailext attachLog: true, body: '', subject: 'Build finished',from: 'mohamedaziz.benhaha@esprit.tn' , to: 'mohamedaziz.benhaha@esprit.tn'
+		
             cleanWs()
        }
     }
