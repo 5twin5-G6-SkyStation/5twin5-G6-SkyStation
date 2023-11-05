@@ -27,7 +27,7 @@ services:
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.url"  : "jdbc:mysql://mysqldb:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE?useSSL=false&enabledTLSProtocols=TLSv1.2",
-        "spring.datasource.username" : "aziz",
+        "spring.datasource.username" : "root",
         "spring.datasource.password" : "1234",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.jpa.hibernate.ddl-auto" : "update"
