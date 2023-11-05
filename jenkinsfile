@@ -5,8 +5,6 @@ pipeline{
 
     stages {
 
-
-        stages {
         stage('Checkout from Git') {
             steps {
                 checkout([
