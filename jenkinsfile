@@ -31,10 +31,5 @@ pipeline {
             }
         }
 
-         stage('Publish to Nexus') {
-            steps {
-                     sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.ds -DartifactId=SkiStationProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Dfile=target/gestion-station-ski-1.0.jar'
-           }
-        }
 }
 }
