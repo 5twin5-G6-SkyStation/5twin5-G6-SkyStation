@@ -1,10 +1,7 @@
-pipeline{
+pipeline {
     agent any
 
-
-
     stages {
-
         stage('Checkout from Git') {
             steps {
                 checkout([
@@ -15,38 +12,21 @@ pipeline{
             }
         }
 
-
-       stage('Cleaning the project') {
-            steps{
-                	sh "mvn -B -DskipTests clean  "
+        stage('Clean and Build') {
+            steps {
+                sh "mvn clean package -DskipTests"
             }
         }
 
-
-
-        stage('Artifact Construction') {
-            steps{
-                	sh "mvn -B -DskipTests package "
+        stage('Unit Tests') {
+            steps {
+                sh "mvn test"
             }
         }
-
-
-
-         stage('Unit Tests') {
-            steps{
-               		 sh "mvn test "
-            }
-        }
-
-
 
         stage('Code Quality Check via SonarQube') {
-            steps{
-
-             		sh "mvn clean verify sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.token=sqa_7cb738af45c73d4903f550434b3c86c573b1b4f4"
-
-
-
+            steps {
+                sh "mvn verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.login=sqa_7cb738af45c73d4903f550434b3c86c573b1b4f4"
             }
         }
 
