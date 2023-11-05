@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 public class InstructorTest {
-	/*@Mock
+	@Mock
 	private IInstructorRepository instructorRepository;
 
 	@Mock
@@ -207,6 +207,6 @@ public class InstructorTest {
 		Instructor updatedInstructor = instructorService.updateInstructor(instructor);
 
 		Assertions.assertEquals(instructor, updatedInstructor);
-	}*/
+	}
 
 }
