@@ -18,13 +18,6 @@ pipeline {
             }
         }
 
-        
-        stage('Publish to Nexus') {
-            steps {
-                sh 'mvn deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.17.0.1:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
-            }
-        }
-
         stage('Code Quality Check via SonarQube') {
             steps {
                 sh "mvn verify sonar:sonar -Dsonar.projectKey=station -Dsonar.projectName='station' -Dsonar.host.url=http://172.17.0.1:9000 -Dsonar.login=sqa_7cb738af45c73d4903f550434b3c86c573b1b4f4"
@@ -34,6 +27,13 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 sh "mvn test"
+            }
+        }
+
+               
+        stage('Publish to Nexus') {
+            steps {
+                sh 'mvn deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.17.0.1:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
             }
         }
     }
