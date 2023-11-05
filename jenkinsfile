@@ -30,19 +30,5 @@ pipeline {
             }
         }
 
-        stage('Publish to Nexus') {
-            steps {
-                script {
-                    def nexusUrl = 'http://172.17.0.1:8081/repository/maven-releases/'
-                    def groupId = 'tn.esprit.ds'
-                    def artifactId = 'SkiStationProject'
-                    def version = '1.0'
-                    def packaging = 'jar'
-                    def file = 'target/gestion-station-ski-1.0.jar'
-
-                    sh "mvn deploy:deploy-file -DgroupId=${groupId} -DartifactId=${artifactId} -Dversion=${version} -Dpackaging=${packaging} -Dfile=${file} -DrepositoryId=maven-releases -Durl=${nexusUrl}"
-                }
-            }
-        }
     }
 }
