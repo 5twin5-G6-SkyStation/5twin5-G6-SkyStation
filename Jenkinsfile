@@ -73,7 +73,7 @@ stage('Build Docker Image') {
 	    
 	                      stage('Push Docker Image') {
                                         steps {
-                                   sh 'docker push azizoss/spring-app-twin:second'
+                                   sh 'docker push azizoss/spring-app-twin:latest'
                                             }
 		  }
 
