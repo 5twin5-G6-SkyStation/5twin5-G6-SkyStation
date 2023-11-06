@@ -1,77 +1,110 @@
-pipeline {
+pipeline{
     agent any
 
+
+
     stages {
+
+
         stage('Getting project from Git') {
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/hadilkacem-5twin5-G6']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
+      			checkout([$class: 'GitSCM', branches: [[name: '*/hadilkacem-5twin5-G6']],
+			extensions: [],
+			userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
             }
         }
 
-        stage('Cleaning the project') {
+
+       stage('Cleaning the project') {
             steps{
-                sh "mvn -B -DskipTests clean  "
+                	sh "mvn -B -DskipTests clean  "
             }
         }
+
+
 
         stage('Artifact Construction') {
             steps{
-                sh "mvn -B -DskipTests package "
+                	sh "mvn -B -DskipTests package "
             }
         }
+
+
+/*
+         stage('Unit Tests') {
+            steps{
+               		 sh "mvn test "
+            }
+        }
+*/
+
 
         stage('Code Quality Check via SonarQube') {
             steps{
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_d9165d585fd3da11870c2a9ea1a62ba28d3e175d"
+
+             		sh "mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_d9165d585fd3da11870c2a9ea1a62ba28d3e175d"
+
+
+
             }
         }
+
 
         stage('Publish to Nexus') {
             steps {
-                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.ds -DartifactId=SkiStationProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
+
+
+  sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.ds -DartifactId=SkiStationProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
+
+
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh 'docker build -t hadilk/spring-app:latest .'
-                }
-            }
-        }
+stage('Build Docker Image') {
+                      steps {
+                          script {
+                            sh 'docker build -t hadilk/spring-app:latest .'
+                          }
+                      }
+                  }
 
-        stage('login dockerhub') {
-            steps {
-                sh 'docker login -u hadilk --password dckr_pat_G3vnlrWj_bOY0MaAyULzy-WuMhU'
-            }
-        }
+                  stage('login dockerhub') {
+                                        steps {
+				sh 'docker login -u hadilk --password dckr_pat_G3vnlrWj_bOY0MaAyULzy-WuMhU'
+                                            }
+		  }
 
-        stage('Push Docker Image') {
-            steps {
-                sh 'docker push hadilk/spring-app:latest'
-            }
-        }
+	                      stage('Push Docker Image') {
+                                        steps {
+                                   sh 'docker push hadilk/spring-app:latest'
+                                            }
+		  }
 
-        stage('Run Spring && MySQL Containers') {
-            steps {
-                script {
-                    sh 'docker compose up -d'
-                }
-            }
-        }
 
-        stage('Notification par e-mail') {
-            steps {
-                mail bcc: '', body: '''Hi Welcome to Jenkins email alerts
-Thanks
-Hadil Kacem''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'hadil.kacem@esprit.tn'
-            }
-        }
-    }
+		   stage('Run Spring && MySQL Containers') {
+                                steps {
+                                    script {
+                                      sh 'docker compose up -d'
+                                    }
+                                }
+                            }
 
-    post {
-        always {
+
+
+
+
+
+}
+
+
+        post {
+
+
+       always {
             cleanWs()
-        }
+       }
     }
+
+
+
 }
