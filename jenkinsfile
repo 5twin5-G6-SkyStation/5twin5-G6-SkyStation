@@ -1,84 +1,110 @@
-pipeline {
+pipeline{
     agent any
 
+
+
     stages {
+
+
         stage('Getting project from Git') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/hadilkacem-5twin5-G6']], userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
+            steps{
+      			checkout([$class: 'GitSCM', branches: [[name: '*/hadilkacem-5twin5-G6']],
+			extensions: [],
+			userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
             }
         }
 
-        stage('Cleaning the project') {
-            steps {
-                sh "mvn clean"
+
+       stage('Cleaning the project') {
+            steps{
+                	sh "mvn -B -DskipTests clean  "
             }
         }
+
+
 
         stage('Artifact Construction') {
-            steps {
-                sh "mvn package -DskipTests"
+            steps{
+                	sh "mvn -B -DskipTests package "
             }
         }
 
-        stage('Code Quality Check via SonarQube') {
-            steps {
-                sh "mvn sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.login=sqp_d9165d585fd3da11870c2a9ea1a62ba28d3e175d"
+
+/*
+         stage('Unit Tests') {
+            steps{
+               		 sh "mvn test "
             }
         }
+*/
+
+
+        stage('Code Quality Check via SonarQube') {
+            steps{
+
+             		sh "mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_d9165d585fd3da11870c2a9ea1a62ba28d3e175d"
+
+
+
+            }
+        }
+
 
         stage('Publish to Nexus') {
             steps {
-                sh 'mvn deploy:deploy-file -DgroupId=tn.esprit.ds -DartifactId=SkiStationProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
+
+
+  sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.ds -DartifactId=SkiStationProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
+
+
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh 'docker build -t hadilk/spring-app:latest .'
-                }
-            }
-        }
+stage('Build Docker Image') {
+                      steps {
+                          script {
+                            sh 'docker build -t hadilk/spring-app:latest .'
+                          }
+                      }
+                  }
 
-        stage('Login DockerHub') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                        sh "docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD"
-                    }
-                }
-            }
-        }
+                  stage('login dockerhub') {
+                                        steps {
+				sh 'docker login -u hadilk --password dckr_pat_G3vnlrWj_bOY0MaAyULzy-WuMhU'
+                                            }
+		  }
 
-        stage('Push Docker Image') {
-            steps {
-                sh 'docker push hadilk/spring-app:latest'
-            }
-        }
+	                      stage('Push Docker Image') {
+                                        steps {
+                                   sh 'docker push hadilk/spring-app:latest'
+                                            }
+		  }
 
-        stage('Run Spring && MySQL Containers') {
-            steps {
-                script {
-                    sh 'docker-compose up -d'
-                }
-            }
-        }
 
-        stage('Notification by Email') {
-            steps {
-                mail bcc: '',
-                    body: '''Hi Welcome to Jenkins email alerts
-Thanks
-Hadil Kacem''',
-                    subject: 'Jenkins Job',
-                    to: 'hadil.kacem@esprit.tn'
-            }
-        }
-    }
+		   stage('Run Spring && MySQL Containers') {
+                                steps {
+                                    script {
+                                      sh 'docker compose up -d'
+                                    }
+                                }
+                            }
 
-    post {
-        always {
+
+
+
+
+
+}
+
+
+        post {
+
+
+       always {
             cleanWs()
-        }
+       }
     }
+
+
+
 }
