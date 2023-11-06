@@ -46,7 +46,7 @@ pipeline {
 
         stage('login dockerhub') {
             steps {
-                sh 'docker login -u widedgh --password 1481999wi'
+                sh 'docker login -u widedgh --password dckr_pat_R-IkFsccABvzTdTkyotJyPfcQD0'
             }
         }
 
