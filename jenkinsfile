@@ -80,6 +80,17 @@ stage('Build Docker Image') {
                                             }
 		  }
 
+		   stage('Notification by Email') {
+                                 steps {
+                                     mail bcc: '',
+                                         body: '''Hi Welcome to Jenkins email alerts
+                     Thanks
+                     Hadil Kacem''',
+                                         subject: 'Jenkins Job',
+                                         to: 'hadil.kacem@esprit.tn'
+                                 }
+                             }
+
 
 		   stage('Run Spring && MySQL Containers') {
                                 steps {
