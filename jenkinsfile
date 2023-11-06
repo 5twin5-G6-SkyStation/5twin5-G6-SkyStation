@@ -46,13 +46,9 @@ pipeline {
 
         stage('login dockerhub') {
             steps {
-                script {
-                    def dockerPassword = '1d94920e-51df-4767-9c39-a0238c03c28b'
-                    sh "echo \$dockerPassword | docker login -u widedgh --password-stdin"
-                }
+                sh 'docker login -u widedgh --password 1481999wi'
             }
         }
-
 
         stage('Push Docker Image') {
             steps {
