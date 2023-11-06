@@ -3,32 +3,32 @@ pipeline {
 
     stages {
         stage('Getting project from Git') {
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/hadilkacem-5twin5-G6']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/hadilkacem-5twin5-G6']], userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
             }
         }
 
         stage('Cleaning the project') {
-            steps{
-                sh "mvn -B -DskipTests clean  "
+            steps {
+                sh "mvn clean"
             }
         }
 
         stage('Artifact Construction') {
-            steps{
-                sh "mvn -B -DskipTests package "
+            steps {
+                sh "mvn package -DskipTests"
             }
         }
 
         stage('Code Quality Check via SonarQube') {
-            steps{
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_d9165d585fd3da11870c2a9ea1a62ba28d3e175d"
+            steps {
+                sh "mvn sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.login=sqp_d9165d585fd3da11870c2a9ea1a62ba28d3e175d"
             }
         }
 
         stage('Publish to Nexus') {
             steps {
-                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.ds -DartifactId=SkiStationProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
+                sh 'mvn deploy:deploy-file -DgroupId=tn.esprit.ds -DartifactId=SkiStationProject -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
             }
         }
 
@@ -40,9 +40,9 @@ pipeline {
             }
         }
 
-        stage('login dockerhub') {
+        stage('Login DockerHub') {
             steps {
-                sh 'docker login -u hadilk --password dckr_pat_G3vnlrWj_bOY0MaAyULzy-WuMhU'
+                sh 'docker login -u hadilk -p $DOCKERHUB_PASSWORD'
             }
         }
 
@@ -55,16 +55,19 @@ pipeline {
         stage('Run Spring && MySQL Containers') {
             steps {
                 script {
-                    sh 'docker compose up -d'
+                    sh 'docker-compose up -d'
                 }
             }
         }
 
-        stage('Notification par e-mail') {
+        stage('Notification by Email') {
             steps {
-                mail bcc: '', body: '''Hi Welcome to Jenkins email alerts
+                mail bcc: '',
+                    body: '''Hi Welcome to Jenkins email alerts
 Thanks
-Hadil Kacem''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'hadil.kacem@esprit.tn'
+Hadil Kacem''',
+                    subject: 'Jenkins Job',
+                    to: 'hadil.kacem@esprit.tn'
             }
         }
     }
