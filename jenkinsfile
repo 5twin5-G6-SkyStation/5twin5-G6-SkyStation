@@ -39,7 +39,27 @@ pipeline {
         stage('Building Image') {
             steps {
                 script {
-                    sh 'docker build -t wided/spring-app:latest .'
+                    sh 'docker build -t widedgh/spring-app:latest .'
+                }
+            }
+        }
+
+        stage('login dockerhub') {
+            steps {
+                sh 'docker login -u widedgh --password dckr_pat_G3vnlrWj_bOY0MaAyULzy-WuMhU'
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                sh 'docker push widedgh/spring-app:latest'
+            }
+        }
+
+        stage('Run Spring && MySQL Containers') {
+            steps {
+                script {
+                    sh 'docker compose up -d'
                 }
             }
         }
