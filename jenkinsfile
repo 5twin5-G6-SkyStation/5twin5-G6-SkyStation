@@ -36,5 +36,13 @@ pipeline {
             }
         }
 
+        stage('Building Image') {
+            steps {
+                script {
+                    sh 'docker build -t wided/spring-app:latest .'
+                }
+            }
+        }
+
     }
 }
