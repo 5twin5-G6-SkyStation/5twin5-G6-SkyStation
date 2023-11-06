@@ -19,6 +19,7 @@ pipeline{
             steps{
                 	sh "mvn -B -DskipTests clean  "
             }
+ 
         }
 
 
@@ -88,6 +89,12 @@ stage('Build Docker Image') {
                                     }
                                 }
                             }
+                   stage('Notification par e-mail') {
+                      mail bcc: '', body: '''Hi Welcome to jenkins email alerts
+                      Thanks
+                      Hadil Kacem''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'hadil.kacem@esprit.tn'
+                         }
+                     }
 
 
 
