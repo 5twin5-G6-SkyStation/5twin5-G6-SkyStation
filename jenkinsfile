@@ -42,7 +42,11 @@ pipeline {
 
         stage('Login DockerHub') {
             steps {
-                sh 'docker login -u hadilk -p $DOCKERHUB_PASSWORD'
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                        sh "docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD"
+                    }
+                }
             }
         }
 
