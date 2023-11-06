@@ -19,7 +19,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image:  hadilk/spring-app
+    image:  widedgh/spring-app:widedgharbi-5twin5-G6
     restart: on-failure
     env_file: ./.env
     ports:
