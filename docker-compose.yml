@@ -19,7 +19,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image:  azizoss/5twin5-G6-SkyStation:Mohamedaziztrabelsi-5Twin5-G6
+    image:  azizoss/5twin5-g6-skystation:mohamedaziztrabelsi-5Twin5-g6
     container_name: Mohamedaziztrabelsi-5Twin5-G6
     restart: on-failure
     env_file: ./.env
