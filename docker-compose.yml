@@ -19,7 +19,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image:  azizoss/spring-app-twin:latest
+    image:  azizoss/5twin5-G6-SkyStation:Mohamedaziztrabelsi-5Twin5-G6
     container_name: springapp
     restart: on-failure
     env_file: ./.env
