@@ -60,7 +60,7 @@ pipeline{
 stage('Build Docker Image') {
                       steps {
                           script {
-                            sh 'docker build -t azizoss/spring-app-twin:latest .'
+                            sh 'docker build -t azizoss/5twin5-G6-SkyStation:Mohamedaziztrabelsi-5Twin5-G6 .'
                           }
                       }
                   }
@@ -73,7 +73,7 @@ stage('Build Docker Image') {
 	    
 	                      stage('Push Docker Image') {
                                         steps {
-                                   sh 'docker push azizoss/spring-app-twin:latest '
+                                   sh 'docker push azizoss/5twin5-G6-SkyStation:Mohamedaziztrabelsi-5Twin5-G6 '
                                             }
 		  }
 
