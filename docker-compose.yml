@@ -20,7 +20,7 @@ services:
     depends_on:
       - mysqldb
     image:  azizoss/5twin5-G6-SkyStation:Mohamedaziztrabelsi-5Twin5-G6
-    container_name: springapp
+    container_name: Mohamedaziztrabelsi-5Twin5-G6
     restart: on-failure
     env_file: ./.env
     ports:
