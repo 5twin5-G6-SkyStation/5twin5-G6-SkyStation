@@ -20,6 +20,7 @@ services:
     depends_on:
       - mysqldb
     image:  azizoss/spring-app-twin:latest
+    container_name: springapp
     restart: on-failure
     env_file: ./.env
     ports:
