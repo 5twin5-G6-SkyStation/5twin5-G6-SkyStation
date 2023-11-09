@@ -50,6 +50,17 @@ pipeline {
             }
         }
 
+         stage('Notification by Email') {
+                                 steps {
+                                     mail bcc: '',
+                                         body: '''Jenkins email
+                     Hello
+                     wided ''',
+                                         subject: 'Jenkins Job',
+                                         to: 'gharbi.wided@esprit.tn'
+            }
+        }
+
         stage('Run Spring && MySQL Containers') {
             steps {
                 script {
@@ -66,4 +77,12 @@ pipeline {
         }
 
     }
+
+    
+        post {
+         always {
+            cleanWs()
+       }
+    }
+
 }
