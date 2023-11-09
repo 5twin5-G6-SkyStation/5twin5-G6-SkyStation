@@ -51,13 +51,12 @@ pipeline {
         }
 
          stage('Notification by Email') {
-                                 steps {
-                                     mail bcc: '',
-                                         body: '''Jenkins email
-                     Hello
-                     wided ''',
-                                         subject: 'Jenkins Job',
-                                         to: 'gharbi.wided@esprit.tn'
+            steps {
+                emailext subject: 'Jenkins Job',
+                    body: '''Jenkins email
+                            Hello
+                            wided ''',
+                    to: 'gharbi.wided@esprit.tn'
             }
         }
 
