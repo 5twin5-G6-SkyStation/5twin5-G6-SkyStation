@@ -30,7 +30,7 @@ pipeline {
             }
         }
 
-        stage('Parallel Steps') {
+        stage('Parallel Steps: Building Image and Publish to Nexus') {
             parallel {
                 stage('Building Image') {
                     steps {
