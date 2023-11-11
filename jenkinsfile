@@ -30,20 +30,10 @@ pipeline {
             }
         }
 
-        stage('Parallel Steps: Building Image and Publish to Nexus') {
-            parallel {
-                stage('Building Image') {
-                    steps {
-                        script {
-                            sh 'docker build -t widedgh/spring-app:widedgharbi-5twin5-G6 .'
-                        }
-                    }
-                }
-
-                stage('Publish to Nexus') {
-                    steps {
-                        sh 'mvn deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://localhost:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
-                    }
+        stage('Building Image') {
+            steps {
+                script {
+                    sh 'docker build -t widedgh/spring-app:widedgharbi-5twin5-G6 .'
                 }
             }
         }
@@ -68,15 +58,14 @@ pipeline {
             }
         }
 
-      /*   
+         
         stage('Publish to Nexus') {
             steps {
                 sh 'mvn deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://localhost:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
             }
         }
-*/
+
     }
-    
 
     
         post {
