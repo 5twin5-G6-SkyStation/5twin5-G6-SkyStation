@@ -12,10 +12,10 @@ pipeline {
             }
              post {
         success {
-            subject: 'Succès', emailext body: 'Succès du checkout Git', subject: 'Succès - Étape Checkout', to: 'gharbi.wided@esprit.tn'
+           emailext  subject: 'Succès', body: 'Succès du checkout Git', subject: 'Succès - Étape Checkout', to: 'gharbi.wided@esprit.tn'
         }
         failure {
-            subject: 'Échec', emailext body: 'Échec du checkout Git', subject: 'Échec - Étape Checkout', to: 'gharbi.wided@esprit.tn'
+           emailext  subject: 'Échec', body: 'Échec du checkout Git', subject: 'Échec - Étape Checkout', to: 'gharbi.wided@esprit.tn'
         }
     }
         }
