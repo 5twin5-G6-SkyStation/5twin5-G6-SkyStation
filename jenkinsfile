@@ -66,11 +66,7 @@
                       }
                   }
 
-                  stage('login dockerhub') {
-                                        steps {
-				sh 'docker login -u hajer05 --password dckr_pat_RSXhVF95RdTy-kosv9b4ocrP5AI'
-                                            }
-		  }
+                
 	    
 	                      stage('Push Docker Image') {
                                         steps {
