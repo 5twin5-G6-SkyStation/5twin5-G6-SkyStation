@@ -74,9 +74,17 @@
 	    
 	                      stage('Push Docker Image') {
                                         steps {
-                                   sh 'docker push hajer05/spring-app-twin:latest'
+                                          script{ 
+                                             sh'echo"16Hm@1999"| docker login --username"hajer05" --password-stdin'
+                                             sh'docker tag hajerhajmeftah-5twin5-G6/ devops:latest'
+					 sh 'docker push hajer05/spring-app-twin:latest'
+                                             }
+                                   
                                             }
 		  }
+
+                 stage('Docker Compose')
+                     steps{ sh'docker compose up -d'}
 
                    stage('Notification by Email') {
                       steps {
