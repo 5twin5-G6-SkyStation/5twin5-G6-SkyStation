@@ -78,6 +78,14 @@
                                             }
 		  }
 
+                   stage('Notification by Email') {
+                      steps {
+                                mail bcc: '',
+                                     body: '''Hi Welcome to Jenkins email alerts Thanks Hajer haj meftah''',
+                                     subject: 'Jenkins Job',
+                                     to: 'hajer.hajmeftah@esprit.tn'
+                                 }
+                             }
 
 		   stage('Run Spring && MySQL Containers') {
                                 steps {
