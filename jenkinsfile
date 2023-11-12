@@ -42,7 +42,7 @@
         stage('Code Quality Check via SonarQube') {
             steps{
 
-             		sh "mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_d3624c5a99ade9191b6541c5f376913e6380979c"
+             		sh "mvn clean verify sonar:sonar -Dsonar.projectKey=skier -Dsonar.projectName='skier' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_b0d0a6cd39e09351fbc8879810bf4a1c9fef6b58"
 
             }
         }
@@ -66,18 +66,30 @@
                       }
                   }
 
-                  stage('login dockerhub') {
-                                        steps {
-				sh 'docker login -u hajer05 --password dckr_pat_RSXhVF95RdTy-kosv9b4ocrP5AI'
-                                            }
-		  }
+                
 	    
 	                      stage('Push Docker Image') {
                                         steps {
-                                   sh 'docker push hajer05/spring-app-twin:latest'
+                                          script{ 
+                                             sh'echo"16Hm@1999"| docker login --username"hajer05" --password-stdin'
+                                             sh'docker tag hajerhajmeftah-5twin5-G6/ devops:latest'
+					 sh 'docker push hajer05/spring-app-twin:latest'
+                                             }
+                                   
                                             }
 		  }
 
+                 stage('Docker Compose')
+                     steps{ sh'docker compose up -d'}
+
+                   stage('Notification by Email') {
+                      steps {
+                                mail bcc: '',
+                                     body: '''Hi Welcome to Jenkins email alerts Thanks Hajer haj meftah''',
+                                     subject: 'Jenkins Job',
+                                     to: 'hajer.hajmeftah@esprit.tn'
+                                 }
+                             }
 
 		   stage('Run Spring && MySQL Containers') {
                                 steps {
