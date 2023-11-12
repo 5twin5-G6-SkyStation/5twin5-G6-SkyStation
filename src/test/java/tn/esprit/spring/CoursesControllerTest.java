@@ -3,13 +3,11 @@ package tn.esprit.spring;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,12 +23,11 @@ import tn.esprit.spring.services.CourseServicesImpl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-public class CoursesControllerTest {
+class CoursesControllerTest {
 
     ObjectMapper objectMapper = new ObjectMapper();
     ObjectWriter objectWriter = objectMapper.writer();
@@ -46,14 +43,8 @@ public class CoursesControllerTest {
     Course RECORD_3 = new Course(3L, 3, TypeCourse.COLLECTIVE_ADULT, Support.SKI, 30.3F, 3);
 
 
-//    @Before("")
-//    public void setUp() {
-//        MockitoAnnotations.initMocks(this);
-//        this.mockMvc = MockMvcBuilders.standaloneSetup(courseRestController).build();
-//    }
-
     @Test
-    public void getAllRecords_success() throws Exception {
+    void getAllRecords_success() throws Exception {
         List<Course> records = new ArrayList<>(Arrays.asList(RECORD_1, RECORD_2, RECORD_3));
 
         Mockito.when(courseServices.retrieveAllCourses()).thenReturn(records);
@@ -69,7 +60,7 @@ public class CoursesControllerTest {
     }
 
     @Test
-    public void getCourseById_success() throws Exception {
+    void getCourseById_success() throws Exception {
         Mockito.when(courseServices.retrieveCourse(RECORD_1.getNumCourse())).thenReturn(RECORD_1);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(courseRestController).build();
 
@@ -84,7 +75,7 @@ public class CoursesControllerTest {
 
 
     @Test
-    public void createRecord_success() throws Exception {
+    void createRecord_success() throws Exception {
         Course course = new Course(1L, 1, TypeCourse.INDIVIDUAL, Support.SKI, 1.3F, 1);
 
         Mockito.when(courseServices.addCourse(Mockito.any(Course.class))).thenReturn(course);
@@ -105,7 +96,7 @@ public class CoursesControllerTest {
 
 
     @Test
-    public void testUpdateCourse() throws Exception {
+    void testUpdateCourse() throws Exception {
         Course course = new Course(1L, 1, TypeCourse.INDIVIDUAL, Support.SKI, 1.3F, 1);
 
         Mockito.when(courseServices.updateCourse(Mockito.any(Course.class))).thenReturn(course);
