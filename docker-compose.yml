@@ -16,12 +16,23 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
+
+
   app:
     depends_on:
       - mysqldb
     image:  amirovvv/spring-app-twin:amirjebari-5twin5-G6V1
     restart: on-failure
     env_file: ./.env
+
+    angular-app:
+      image: amirovvv/front-app:amirjebari-5twin5-G6
+      ports:
+        - "4200:80"  # Adapter le port selon les spécifications de votre application Angular
+      depends_on:
+        - spring-app-twin
+
+
     ports:
       - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
     environment:
@@ -44,3 +55,4 @@ services:
 
 volumes:
   db:
+

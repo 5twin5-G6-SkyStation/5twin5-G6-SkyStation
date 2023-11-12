@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: Deployment-spring-app
+spec:
+  selector:
+    matchLabels:
+      app: spring-app-twin
+  replicas: 1 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: spring-app-twin
+    spec:
+      containers:
+        - name: DevOps_Project
+          image: amirovvv/spring-app-twin
+          # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+# The port that the container is running on in the cluster
