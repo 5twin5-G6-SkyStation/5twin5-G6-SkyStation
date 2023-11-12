@@ -10,12 +10,28 @@ pipeline {
                     userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]
                 ])
             }
+             post {
+        success {
+            subject: 'Succès', emailext body: 'Succès du checkout Git', subject: 'Succès - Étape Checkout', to: 'gharbi.wided@esprit.tn'
+        }
+        failure {
+            subject: 'Échec', emailext body: 'Échec du checkout Git', subject: 'Échec - Étape Checkout', to: 'gharbi.wided@esprit.tn'
+        }
+    }
         }
 
         stage('Clean and Build') {
             steps {
                 sh "mvn clean package -DskipTests"
             }
+            post {
+        success {
+            emailext subject: 'Succès', body: 'Succès du nettoyage et de la construction', subject: 'Succès - Nettoyage et Construction', to: 'gharbi.wided@esprit.tn'
+        }
+        failure {
+            emailext subject: 'SÉchec', body: 'Échec du nettoyage et de la construction', subject: 'Échec - Nettoyage et Construction', to: 'gharbi.wided@esprit.tn'
+        }
+    }
         }
 
         stage('Code Quality Check via SonarQube') {
@@ -68,10 +84,18 @@ pipeline {
     }
 
     
-        post {
-         always {
-            cleanWs()
-       }
+       post {
+    always {
+        cleanWs()
     }
+    success {
+        emailext subject: 'Succès',
+            body: 'La pipeline Jenkins a été exécutée avec succès.',
+            to: 'gharbi.wided@esprit.tn'
+    }
+    failure {
+            emailext subject: 'Echec', body: 'Échec de la pipeline Jenkins', subject: 'Échec - Étape Checkout', to: 'gharbi.wided@esprit.tn'
+        }
+}
 
 }
