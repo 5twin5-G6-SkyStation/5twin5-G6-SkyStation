@@ -68,34 +68,32 @@ pipeline{
                       }
                   }
 
-                  stage('login dockerhub') {
-                                        steps {
-				sh 'docker login -u hajerM --password dckr_pat_G3vnlrWj_bOY0MaAyULzy-WuMhU'
+       stage('login dockerhub') {
+                      steps {
+				            sh 'docker login -u hajer05 --password dckr_pat_RSXhVF95RdTy-kosv9b4ocrP5AI'
                                             }
 		  }
 
-	                      stage('Push Docker Image') {
-                                        steps {
-                                   sh 'docker push hajerM/spring-app:latest'
+	   stage('Push Docker Image') {
+                      steps {
+                             sh 'docker push hajerM/spring-app:latest'
                                             }
 		  }
 
-		   stage('Notification by Email') {
-                                 steps {
-                                     mail bcc: '',
-                                         body: '''Hi Welcome to Jenkins email alerts
-                     Thanks
-                     Hajer haj meftah''',
-                                         subject: 'Jenkins Job',
-                                         to: 'hajer.hajmeftah@esprit.tn'
+	   stage('Notification by Email') {
+                      steps {
+                                mail bcc: '',
+                                     body: '''Hi Welcome to Jenkins email alerts Thanks Hajer haj meftah''',
+                                     subject: 'Jenkins Job',
+                                     to: 'hajer.hajmeftah@esprit.tn'
                                  }
                              }
 
 
-		   stage('Run Spring && MySQL Containers') {
-                                steps {
-                                    script {
-                                      sh 'docker compose up -d'
+	   stage('Run Spring && MySQL Containers') {
+                      steps {
+                              script {
+                                   sh 'docker compose up -d'
                                     }
                                 }
                             }
