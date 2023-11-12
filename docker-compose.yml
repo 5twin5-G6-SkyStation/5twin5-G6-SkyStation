@@ -30,7 +30,7 @@ services:
       ports:
         - "4200:80"  # Adapter le port selon les spécifications de votre application Angular
       depends_on:
-        - spring-app-twin
+        - app
 
 
     ports:
