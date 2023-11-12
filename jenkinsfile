@@ -12,10 +12,10 @@ pipeline {
             }
              post {
         success {
-           emailext  subject: 'Succès', body: 'Succès du checkout Git', subject: 'Succès - Étape Checkout', to: 'gharbi.wided@esprit.tn'
+           emailext body: 'Succès du checkout Git', subject: 'Succès - Étape Checkout', to: 'gharbi.wided@esprit.tn'
         }
         failure {
-           emailext  subject: 'Échec', body: 'Échec du checkout Git', subject: 'Échec - Étape Checkout', to: 'gharbi.wided@esprit.tn'
+           emailext body: 'Échec du checkout Git', subject: 'Échec - Étape Checkout', to: 'gharbi.wided@esprit.tn'
         }
     }
         }
@@ -26,10 +26,10 @@ pipeline {
             }
             post {
         success {
-            emailext subject: 'Succès', body: 'Succès du nettoyage et de la construction', subject: 'Succès - Nettoyage et Construction', to: 'gharbi.wided@esprit.tn'
+            emailext body: 'Succès du nettoyage et de la construction', subject: 'Succès - Nettoyage et Construction', to: 'gharbi.wided@esprit.tn'
         }
         failure {
-            emailext subject: 'SÉchec', body: 'Échec du nettoyage et de la construction', subject: 'Échec - Nettoyage et Construction', to: 'gharbi.wided@esprit.tn'
+            emailext body: 'Échec du nettoyage et de la construction', subject: 'Échec - Nettoyage et Construction', to: 'gharbi.wided@esprit.tn'
         }
     }
         }
@@ -89,12 +89,10 @@ pipeline {
         cleanWs()
     }
     success {
-        emailext subject: 'Succès',
-            body: 'La pipeline Jenkins a été exécutée avec succès.',
-            to: 'gharbi.wided@esprit.tn'
+        body: 'La pipeline Jenkins a été exécutée avec succès.', to: 'gharbi.wided@esprit.tn'
     }
     failure {
-            emailext subject: 'Echec', body: 'Échec de la pipeline Jenkins', subject: 'Échec - Étape Checkout', to: 'gharbi.wided@esprit.tn'
+            emailext body: 'Échec de la pipeline Jenkins', subject: 'Échec - Étape Checkout', to: 'gharbi.wided@esprit.tn'
         }
 }
 
