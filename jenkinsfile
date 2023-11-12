@@ -92,7 +92,7 @@ pipeline {
             emailext subject: "Succées - La pipeline Jenkins" , body: "La pipeline Jenkins a été exécutée avec succès.", to: "gharbi.wided@esprit.tn"
     }
     failure {
-            emailext subject: "Échec - La pipeline Jenkins" , body: "Échec de la pipeline Jenkins", subject: "Échec - Étape Checkout", to: "gharbi.wided@esprit.tn"
+            emailext subject: "Échec - La pipeline Jenkins" , body: "Échec de la pipeline Jenkins",  to: "gharbi.wided@esprit.tn"
         }
 }
 
