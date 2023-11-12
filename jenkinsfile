@@ -71,35 +71,5 @@ pipeline {
         always {
             cleanWs()
         }
-        success {
-            emailext(
-                subject: "Succès - La pipeline Jenkins",
-                body: """
-                <html>
-                <body>
-                    <h1 style="color: green;">Succès de la pipeline Jenkins</h1>
-                    <p>La pipeline Jenkins a été exécutée avec succès.</p>
-                </body>
-                </html>
-                """,
-                to: "gharbi.wided@esprit.tn",
-                mimeType: 'text/html'
-            )
-        }
-        failure {
-            emailext(
-                subject: "Échec - La pipeline Jenkins",
-                body: """
-                <html>
-                <body>
-                    <h1 style="color: red;">Échec de la pipeline Jenkins</h1>
-                    <p>La pipeline Jenkins a rencontré des problèmes et a échoué.</p>
-                </body>
-                </html>
-                """,
-                to: "gharbi.wided@esprit.tn",
-                mimeType: 'text/html'
-            )
-        }
     }
 }
