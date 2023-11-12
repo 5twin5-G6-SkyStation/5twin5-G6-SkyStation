@@ -1,41 +1,43 @@
-package tn.esprit.spring;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import tn.esprit.spring.controllers.PisteRestController;
 import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.services.IPisteServices;
 
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
+import java.util.ArrayList;
+import java.util.List;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest
 public class PisteRestControllerTest {
 
-    @Autowired
-    private PisteRestController pisteRestController;
+    @InjectMocks
+    PisteRestController pisteRestController;
 
-    @MockBean
-    private IPisteServices pisteServices;
+    @Mock
+    IPisteServices pisteServices;
+
+    @BeforeEach
+    void setUp() {
+        // Initialisation de Mockito
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
-    public void testAddPiste() {
+    @Order(1)
+    void testAddPiste() {
         // Créez un objet Piste factice pour les tests
         Piste piste = new Piste();
         piste.setNom("Ma piste de test");
 
         // Définissez le comportement attendu lors de l'appel au service
-        when(pisteServices.addPiste(any(Piste.class))).thenReturn(piste);
+        Mockito.when(pisteServices.addPiste(Mockito.any(Piste.class))).thenReturn(piste);
 
         // Appelez la méthode du contrôleur que vous voulez tester
         Piste result = pisteRestController.addPiste(piste);
@@ -45,51 +47,52 @@ public class PisteRestControllerTest {
         assertEquals("Ma piste de test", result.getNom());
     }
 
-
     @Test
-    public void testGetAllPistes() {
+    @Order(2)
+    void testGetAllPistes() {
         // Créez une liste factice de pistes pour les tests
         List<Piste> pistes = new ArrayList<>();
         pistes.add(new Piste("Piste 1"));
-        pistes.add(new Piste("Piste 2"));
-    
+        pistes add(new Piste("Piste 2"));
+
         // Définissez le comportement attendu lors de l'appel au service
-        when(pisteServices.retrieveAllPistes()).thenReturn(pistes);
-    
+        Mockito.when(pisteServices.retrieveAllPistes()).thenReturn(pistes);
+
         // Appelez la méthode du contrôleur que vous voulez tester
         List<Piste> result = pisteRestController.getAllPistes();
-    
+
         // Effectuez des assertions pour vérifier que le résultat est conforme aux attentes
         assertNotNull(result);
-        assertEquals(2, result.size()); // Vérifiez le nombre d'éléments dans la liste, par exemple
+        assertEquals(2, result.size());
         assertEquals("Piste 1", result.get(0).getNom());
     }
-    
+
     @Test
-    public void testGetById() {
+    @Order(3)
+    void testGetById() {
         // Créez un objet Piste factice pour les tests
         Piste piste = new Piste();
         piste.setNom("Ma piste de test");
-    
+
         // Définissez le comportement attendu lors de l'appel au service
-        when(pisteServices.retrievePiste(1L)).thenReturn(piste);
-    
+        Mockito.when(pisteServices.retrievePiste(1L)).thenReturn(piste);
+
         // Appelez la méthode du contrôleur que vous voulez tester
         Piste result = pisteRestController.getById(1L);
-    
+
         // Effectuez des assertions pour vérifier que le résultat est conforme aux attentes
         assertNotNull(result);
         assertEquals("Ma piste de test", result.getNom());
     }
-    
+
     @Test
-    public void testDeleteById() {
-        // Définissez le comportement attendu lors de l'appel au service
-        doNothing().when(pisteServices).removePiste(1L);
-    
+    @Order(4)
+    void testDeleteById() {
+        // Définissez le comportement attendu lors de l'appel au service (void)
+        Mockito.doNothing().when(pisteServices).removePiste(1L);
+
         // Appelez la méthode du contrôleur que vous voulez tester
         pisteRestController.deleteById(1L);
-        
-        }
-    
+
+    }
 }
