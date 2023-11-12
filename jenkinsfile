@@ -30,13 +30,13 @@
         }
 
 
-/*
+
          stage('Unit Tests') {
             steps{
                		 sh "mvn test "
             }
         }
-*/
+
 
 
         stage('Code Quality Check via SonarQube') {
@@ -52,13 +52,13 @@
             steps {
 
 
-        sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
+                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
 
 
-            }
-        }
+               }
+           }
 
-    stage('Build Docker Image') {
+       stage('Build Docker Image') {
                       steps {
                           script {
                             sh 'docker build -t hajer05/spring-app-twin:latest .'
@@ -68,7 +68,7 @@
 
                 
 	    
-	                      stage('Push Docker Image') {
+	stage('Push Docker Image') {
                                         steps {
                                           script{ 
                                              sh'echo "16Hm@1999" | docker login --username "hajer05" --password-stdin'
@@ -79,10 +79,12 @@
                                             }
 		  }
 
-                 stage('Docker Compose')
-                     steps{ sh'docker compose up -d'}
+        stage('Docker Compose')
+                     steps{ 
+                         sh'docker compose up -d'
+                          }
 
-                   stage('Notification by Email') {
+        stage('Notification by Email') {
                       steps {
                                 mail bcc: '',
                                      body: '''Hi Welcome to Jenkins email alerts Thanks Hajer haj meftah''',
@@ -91,7 +93,7 @@
                                  }
                              }
 
-		   stage('Run Spring && MySQL Containers') {
+	stage('Run Spring && MySQL Containers') {
                                 steps {
                                     script {
                                       sh 'docker compose up -d'
