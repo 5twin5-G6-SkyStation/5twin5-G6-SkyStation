@@ -10,28 +10,12 @@ pipeline {
                     userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]
                 ])
             }
-             post {
-        success {
-           emailext body: "Succès du checkout Git", subject: "Succès - Étape Checkout", to: "gharbiwided10@gmail.com"
-        }
-        failure {
-           emailext body: "Échec du checkout Git", subject: "Échec - Étape Checkout", to: "gharbiwided10@gmail.com"
-        }
-    }
         }
 
         stage('Clean and Build') {
             steps {
                 sh "mvn clean package -DskipTests"
             }
-            post {
-        success {
-            emailext body: "Succès du nettoyage et de la construction", subject: "Succès - Nettoyage et Construction", to: "gharbiwided10@gmail.com"
-        }
-        failure {
-            emailext body: "Échec du nettoyage et de la construction", subject: "Échec - Nettoyage et Construction", to: "gharbiwided10@gmail.com"
-        }
-    }
         }
 
         stage('Code Quality Check via SonarQube') {
@@ -82,18 +66,40 @@ pipeline {
         }
 
     }
-
-    
-       post {
-    always {
-        cleanWs()
-    }
-    success {
-            emailext subject: "Succées - La pipeline Jenkins" , body: "La pipeline Jenkins a été exécutée avec succès.", to: "gharbiwided10@gmail.com"
-    }
-    failure {
-            emailext subject: "Échec - La pipeline Jenkins" , body: "Échec de la pipeline Jenkins",  to: "gharbiwided10@gmail.com"
+  
+        post {
+        always {
+            cleanWs()
         }
-}
-
+        success {
+            emailext(
+                subject: "Succès - La pipeline Jenkins",
+                body: """
+                <html>
+                <body>
+                    <h1 style="color: green;">Succès de la pipeline Jenkins</h1>
+                    <p>La pipeline Jenkins a été exécutée avec succès.</p>
+                </body>
+                </html>
+                """,
+                to: "gharbi.wided@esprit.tn",
+                mimeType: 'text/html'
+            )
+        }
+        failure {
+            emailext(
+                subject: "Échec - La pipeline Jenkins",
+                body: """
+                <html>
+                <body>
+                    <h1 style="color: red;">Échec de la pipeline Jenkins</h1>
+                    <p>La pipeline Jenkins a rencontré des problèmes et a échoué.</p>
+                </body>
+                </html>
+                """,
+                to: "gharbi.wided@esprit.tn",
+                mimeType: 'text/html'
+            )
+        }
+    }
 }
