@@ -14,7 +14,7 @@ services:
 
   
   docker-mysql:
-    image: "mysql:5.7"
+    image: "mysql"
     environment:
       - spring.datasource.username=root
       - MYSQL_ROOT_PASSWORD=AZaz123456789
