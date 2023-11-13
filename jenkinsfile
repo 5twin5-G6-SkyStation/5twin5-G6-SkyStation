@@ -57,14 +57,6 @@ pipeline {
             }
         }
 
-        stage('Run Spring && MySQL Containers') {
-            steps {
-                script {
-                    sh 'docker compose up -d'
-                }
-            }
-        }
-
         stage('Checkout front from Git') {
             steps {
                 checkout([
@@ -91,6 +83,14 @@ pipeline {
         stage('Push Docker Image front') {
             steps {
                 sh 'docker push widedgh/angular-app:widedgharbi-5twin5-G6'
+            }
+        }
+
+        stage('Run Spring && MySQL Containers') {
+            steps {
+                script {
+                    sh 'docker compose up -d'
+                }
             }
         }
 
