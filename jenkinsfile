@@ -115,7 +115,7 @@ stage('Build Docker Image') {
 
              sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
 
-             sh "docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6"
+             sh "docker push amirovvv/angular-app-twin:amirjebari-5twin5-G6"
 
                 }
             }
@@ -130,7 +130,7 @@ stage('Build Docker Image') {
 	    stage('Build Frontend Docker Image') {
                       steps {
                           script {
-                            sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6 .'
+                            sh 'docker build -t amirovvv/angular-app-twin:amirjebari-5twin5-G6 .'
                           }
                       }
                   }
@@ -143,7 +143,7 @@ stage('Build Docker Image') {
 
              sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
 
-             sh "docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6"
+             sh "docker push amirovvv/angular-app-twin:amirjebari-5twin5-G6"
 
                 }
             }
