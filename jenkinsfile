@@ -1,11 +1,69 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Hello') {
+        stage('GIT') {
             steps {
-                echo 'Hello World!'
+                echo "GETTING PROJECT FORM GIT";
+                script {
+                    checkout([$class: 'GitSCM', branches: [[name: 'abidiwajih-5twin5-G6']], userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
+                }
             }
         }
+
+        stage('BUILD') {
+            steps {
+                sh "mvn clean package"
+            }
+        }
+
+        stage("MVN SONARQUBE") {
+            steps {
+                sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonaradmin";
+            }
+        }
+
+        stage('UNIT TEST') {
+            steps {
+                sh "mvn test"
+            }
+        }
+
+         
+        stage('NEXUS') {
+            steps {
+                sh 'mvn deploy'
+            }
+        }
+
+        stage('BUILD IMAGE') {
+            steps {
+                script {
+                    sh 'docker build -t wajihabidi/wajihabidi-5twin5-g6:SkiStation .'
+                }
+            }
+        }
+
+        stage('DOCKER LOGIN') {
+            steps {
+                sh 'docker login -u wajihabidi --password wajih28487447'
+            }
+        }
+
+        stage('PUSH IMAGE') {
+            steps {
+                sh 'docker push wajihabidi/wajihabidi-5twin5-g6:SkiStation'
+            }
+        }
+
+        stage('DEPLOY') {
+            steps {
+                script {
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+
     }
+        
 }
