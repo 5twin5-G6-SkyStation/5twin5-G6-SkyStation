@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: 5twin5-G6-SkyStation
-          image: amirovvv/angular-app-twin
+          image: amirovvv/spring-app
           # Image that will be used to containers in the cluster
           imagePullPolicy: IfNotPresent
           ports:
