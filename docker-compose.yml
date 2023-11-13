@@ -17,22 +17,12 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-
   app:
     depends_on:
       - mysqldb
-    image:  amirovvv/spring-app-twin:amirjebari-5twin5-G6V1
+    image: amirovvv/spring-app-twin:amirjebari-5twin5-G6V1
     restart: on-failure
     env_file: ./.env
-
-    angular-app:
-      image: amirovvv/front-app:amirjebari-5twin5-G6
-      ports:
-        - "4200:80"  # Adapter le port selon les spécifications de votre application Angular
-      depends_on:
-        - mysqldb
-
-
     ports:
       - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
     environment:
@@ -43,16 +33,13 @@ services:
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.jpa.hibernate.ddl-auto" : "update"
       }'
-    #volumes:
-     # - type: bind
-      #  source: /root/.m2
-      #  target: ${PWD}/.m2
-    #volumes:
-      #- .m2:/root/.m2
     stdin_open: true
     tty: true
     user: root
 
-volumes:
-  db:
-
+  angular-app:
+    image: amirovvv/front-app:amirjebari-5twin5-G6
+    ports:
+      - "4200:80"
+    depends_on:
+      - mysqldb
