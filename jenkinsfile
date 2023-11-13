@@ -69,7 +69,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM',
-                    branches: [[name: '*/main']],
+                    branches: [[name: '*/widedgharbi-5twin5-G6']],
                     userRemoteConfigs: [[url: 'https://github.com/widedgharbi/frontDevops.git']]
                 ])
             }
