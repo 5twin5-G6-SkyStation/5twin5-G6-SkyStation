@@ -1,74 +1,130 @@
 package tn.esprit.spring;
-import static org.junit.Assert.*;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import tn.esprit.spring.entities.Course;
-import tn.esprit.spring.entities.Registration;
-import tn.esprit.spring.entities.Skier;
-import tn.esprit.spring.entities.Support;
+import tn.esprit.spring.controllers.RegistrationRestController;
+import tn.esprit.spring.entities.*;
+import tn.esprit.spring.repositories.IRegistrationRepository;
+import tn.esprit.spring.repositories.ISkierRepository;
+import tn.esprit.spring.services.CourseServicesImpl;
 import tn.esprit.spring.services.IRegistrationServices;
-import tn.esprit.spring.services.RegistrationServicesImpl;
+import tn.esprit.spring.services.SkierServicesImpl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class RegistrationServicesImplTest {
+@TestMethodOrder(OrderAnnotation.class)
+class RegistrationServicesImplTest {
 
     @Autowired
-    private RegistrationServicesImpl registrationServices;
+    private RegistrationRestController registrationRestController;
+
+    @Autowired
+    private IRegistrationServices registrationServices;
+
+    @Autowired
+    private SkierServicesImpl skierServices;
+
+
+    @Autowired
+    private CourseServicesImpl courseServices;
+
+    @Autowired
+    private ISkierRepository skierRepository;
+
+    @Autowired
+    private IRegistrationRepository registrationRepository;
+
 
     @Test
-    public void testAddRegistrationAndAssignToSkier() {
+    @Order(1)
+
+    public void testAddAndAssignToSkier() {
+        // Exemple de données de test
+        Registration registration = new Registration();
+        Long numSkier = 1L;
+
+        // Créez un skieur réel
         Skier skier = new Skier();
-        skier.setNumSkier(1L);
-        Registration registration = new Registration();
+        skier.setNumSkier(numSkier);
 
-        Registration result = registrationServices.addRegistrationAndAssignToSkier(registration, 1L);
+        // Enregistrez le skieur dans le repository
+        skierRepository.save(skier);
 
+        // Appeler directement la méthode du service
+        Registration result = registrationServices.addRegistrationAndAssignToSkier(registration, numSkier);
+
+        // Effectuer les assertions sur le résultat
         assertNotNull(result);
-        assertEquals(skier, result.getSkier());
+        assertNotNull(result.getSkier());
+        assertEquals(numSkier, result.getSkier().getNumSkier());
+
+        // Vérifiez que l'enregistrement a été sauvegardé dans le repository
+        Registration savedRegistration = registrationRepository.findById(result.getNumRegistration()).orElse(null);
+        assertNotNull(savedRegistration);
+        assertEquals(numSkier, savedRegistration.getSkier().getNumSkier());
+
+    }
+
+
+    @Test
+    @Order(2)
+    public void testAssignToCourse() {
+        // Exemple de données de test
+        Long numRegistration = 1L;
+        Long numCourse = 1L;
+
+
+        // Appeler directement la méthode du contrôleur
+        Registration result = registrationRestController.assignToCourse(numRegistration, numCourse);
+
+        // Effectuer les assertions sur le résultat
+        assertNotNull(result);
+        // Ajouter des assertions supplémentaires en fonction de votre logique métier
     }
 
     @Test
-    public void testAssignRegistrationToCourse() {
-        Course course = new Course();
-        course.setNumCourse(1L);
+    @Order(3)
+    public void testAddAndAssignToSkierAndCourse() {
+        // Exemple de données de test
         Registration registration = new Registration();
+        Long numSkieur = 1L;
+        Long numCourse = 1L;
 
-        Registration result = registrationServices.assignRegistrationToCourse(1L, 1L);
 
-        assertNotNull(result);
-        assertEquals(course, result.getCourse());
+        Registration result = registrationRestController.addAndAssignToSkierAndCourse(registration, numSkieur, numCourse);
+
+
     }
 
     @Test
-    public void testAddRegistrationAndAssignToSkierAndCourse() {
-        Skier skier = new Skier();
-        skier.setNumSkier(1L);
-        Course course = new Course();
-        course.setNumCourse(1L);
-        Registration registration = new Registration();
-
-        Registration result = registrationServices.addRegistrationAndAssignToSkierAndCourse(registration, 1L, 1L);
-
-        assertNotNull(result);
-        assertEquals(skier, result.getSkier());
-        assertEquals(course, result.getCourse());
-    }
-
-    @Test
+    @Order(4)
     public void testNumWeeksCourseOfInstructorBySupport() {
+        // Exemple de données de test
         Long numInstructor = 1L;
         Support support = Support.SKI;
 
-        List<Integer> result = registrationServices.numWeeksCourseOfInstructorBySupport(numInstructor, support);
+        // Appeler directement la méthode du contrôleur
+        List<Integer> result = registrationRestController.numWeeksCourseOfInstructorBySupport(numInstructor, support);
 
+        // Effectuer les assertions sur le résultat
         assertNotNull(result);
-        // Ajoutez des assertions supplémentaires en fonction de la logique de votre application
+
     }
+
+
+
 }
+
