@@ -63,7 +63,7 @@ pipeline{
 stage('Build Docker Image') {
                       steps {
                           script {
-                            sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6V1 .'
+                	sh "mvn -B -DskipTests package "
                           }
                       }
                   }
@@ -77,7 +77,7 @@ stage('Build Docker Image') {
 	    
 	                      stage('Push Docker Image') {
                                         steps {
-                                   sh 'docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6V1'
+                	sh "mvn -B -DskipTests package "
                                             }
 		  }
 
