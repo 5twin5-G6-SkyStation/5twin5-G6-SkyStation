@@ -145,7 +145,7 @@ pipeline{
 
 
 
-
+/*
 stage('Build Docker Image') {
                       steps {
                           script {
@@ -165,7 +165,7 @@ stage('Build Docker Image') {
                                         steps {
                                    sh 'docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6V1'
                                             }
-		  }
+		  } */
 
 
 		   stage('Run Spring && MySQL Containers') {
