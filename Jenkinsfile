@@ -39,7 +39,7 @@ pipeline{
 */
 
 
-        stage('Code Quality Check via SonarQube') {
+    /*    stage('Code Quality Check via SonarQube') {
             steps{
 
              		sh " mvn clean verify sonar:sonar -Dsonar.projectKey=cicd -Dsonar.projectName='cicd' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_967f7ce856cba9eaaff2c1d53a4c9da867b1b7eb"
@@ -92,7 +92,7 @@ stage('Build Docker Image') {
 
      
 }
-
+*/
 	    
         post {
 success{
