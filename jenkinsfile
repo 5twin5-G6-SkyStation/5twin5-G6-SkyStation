@@ -63,7 +63,7 @@ pipeline{
 stage('Build Docker Image') {
                       steps {
                           script {
-                	sh "mvn -B -DskipTests package "
+                            sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6V1 .'
                           }
                       }
                   }
@@ -113,7 +113,9 @@ stage('Build Docker Image') {
             steps {
                 script {
 
-                            	sh "mvn -B -DskipTests package "
+             sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
+
+                             	sh "mvn -B -DskipTests package "
 
 
                 }
@@ -140,7 +142,9 @@ stage('Build Docker Image') {
             steps {
                 script {
 
-                            	sh "mvn -B -DskipTests package "
+             sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
+
+                             	sh "mvn -B -DskipTests package "
 
 
                 }
