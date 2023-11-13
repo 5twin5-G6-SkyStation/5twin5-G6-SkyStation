@@ -22,6 +22,7 @@ pipeline {
             }
         }
 
+<<<<<<< HEAD
         // Uncomment the following stage if needed
         /*
         stage('Unit Tests') {
@@ -30,6 +31,17 @@ pipeline {
             }
         }
         */
+=======
+
+
+         stage('Unit Tests') {
+            steps{
+               		 sh "mvn test "
+            }
+        }
+
+
+>>>>>>> 72aaf961ec8b8cfef27865c2e4ee18384485bf6f
 
         stage('Code Quality Check via SonarQube') {
             steps {
@@ -37,6 +49,7 @@ pipeline {
             }
         }
 
+<<<<<<< HEAD
         stage('Publish to Nexus') {
             steps {
                 sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
@@ -75,6 +88,64 @@ pipeline {
                     to: 'hajer.hajmeftah@esprit.tn'
             }
         }
+=======
+
+    /*    stage('Publish to Nexus') {
+            steps {
+
+
+                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
+
+
+               }
+           }  */
+
+       stage('Build Docker Image') {
+                      steps {
+                          script {
+                            sh 'docker build -t hajer05/spring-app-twin:latest .'
+                          }
+                      }
+                  }
+
+                
+	    
+	stage('Push Docker Image') {
+                                        steps {
+                                          script{ 
+                                             sh'echo "16Hm@1999" | docker login --username "hajer05" --password-stdin'
+                                             sh'docker tag hajerhajmeftah-5twin5-g6/devops:latest'
+					 sh 'docker push hajer05/spring-app-twin:latest'
+                                             }
+                                   
+                                            }
+		  }
+
+        stage('Docker Compose') {
+            steps {
+               sh 'docker-compose up -d'
+                 }
+              }
+
+        stage('Notification by Email') {
+                      steps {
+                                mail bcc: '',
+                                     body: '''Hi Welcome to Jenkins email alerts Thanks Hajer haj meftah''',
+                                     subject: 'Jenkins Job',
+                                     to: 'hajer.hajmeftah@esprit.tn'
+                                 }
+                             }
+
+	stage('Run Spring && MySQL Containers') {
+                                steps {
+                                    script {
+                                      sh 'docker compose up -d'
+                                    }
+                                }
+                            }
+
+	    
+>>>>>>> 72aaf961ec8b8cfef27865c2e4ee18384485bf6f
 
 
     }
