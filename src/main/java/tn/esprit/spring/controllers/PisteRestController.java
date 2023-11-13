@@ -5,13 +5,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.services.IPisteServices;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
 @Tag(name = "\uD83C\uDFBF Piste Management")
 @RestController
 @RequestMapping("/piste")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 public class PisteRestController {
 
     private final IPisteServices pisteServices;
