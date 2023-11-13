@@ -65,7 +65,37 @@ pipeline {
             }
         }
 
+        stage('Checkout front from Git') {
+            steps {
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*//* main']],
+                    userRemoteConfigs: [[url: 'https://github.com/widedgharbi/frontDevops.git']]
+                ])
+            }
+        }
+        stage('Building front Image') {
+            steps {
+                script {
+                    sh 'docker build -t widedgh/angular-app:widedgharbi-5twin5-G6 .'
+                }
+            }
+        }
+
+        stage('login dockerhub') {
+            steps {
+                sh 'docker login -u widedgh --password dckr_pat_R-IkFsccABvzTdTkyotJyPfcQD0'
+            }
+        }
+
+        stage('Push Docker Image front') {
+            steps {
+                sh 'docker push widedgh/angular-app:widedgharbi-5twin5-G6'
+            }
+        }
+
     }
+        
   
         post {
         always {
