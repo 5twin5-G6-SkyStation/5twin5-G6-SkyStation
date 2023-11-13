@@ -12,11 +12,13 @@ import java.util.List;
 @Tag(name = "\uD83C\uDFBF Piste Management")
 @RestController
 @RequestMapping("/piste")
-@RequiredArgsConstructor
+
 public class PisteRestController {
 
     private final IPisteServices pisteServices;
-
+    public PisteRestController(IPisteServices pisteServices) {
+        this.pisteServices = pisteServices;
+    }
     @Operation(description = "Add Piste")
     @PostMapping("/add")
     public Piste addPiste(@RequestBody Piste piste){

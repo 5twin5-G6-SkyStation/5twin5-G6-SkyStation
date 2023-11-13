@@ -69,12 +69,22 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
         }
     }
 
-   // @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
-    @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
+    @Scheduled(cron = "*/30 * * * * *") /* Expression Cron pour exécuter une tâche toutes les 30 secondes */
     public void showMonthlyRecurringRevenue() {
-        Float revenue = subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.MONTHLY)
-                + subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.SEMESTRIEL)/6
-                + subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.ANNUAL)/12;
-        log.info("Monthly Revenue = " + revenue);
+        try {
+            Float monthlyRevenue = subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.MONTHLY);
+            Float semestrialRevenue = subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.SEMESTRIEL);
+
+            if (monthlyRevenue != null && semestrialRevenue != null) {
+                // Effectuez vos calculs ici
+                Float revenue = monthlyRevenue + semestrialRevenue / 6 + subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.ANNUAL) / 12;
+                log.info("Revenu mensuel = " + revenue);
+            } else {
+                log.warn("Le revenu mensuel ou semestriel est nul. Impossible de calculer.");
+            }
+        } catch (Exception e) {
+            log.error("Une erreur s'est produite lors du calcul du revenu mensuel récurrent.", e);
+        }
     }
+
 }
