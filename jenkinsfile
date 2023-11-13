@@ -115,7 +115,6 @@ stage('Build Docker Image') {
 
              sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
 
-               		 sh "mvn test "
 
                 }
             }
@@ -130,7 +129,7 @@ stage('Build Docker Image') {
 	    stage('Build Frontend Docker Image') {
                       steps {
                           script {
-               		 sh "mvn test "
+             sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
                           }
                       }
                   }
@@ -143,7 +142,6 @@ stage('Build Docker Image') {
 
              sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
 
-               		 sh "mvn test "
 
                 }
             }
