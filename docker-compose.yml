@@ -3,7 +3,6 @@ services:
 
   StationSki:
     container_name: ski-station
-    build: .\5twin5-G6-SkyStation
     ports:
       - "8089:8089"
     hostname: ski-station
