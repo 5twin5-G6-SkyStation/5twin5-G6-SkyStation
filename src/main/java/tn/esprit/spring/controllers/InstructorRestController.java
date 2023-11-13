@@ -12,13 +12,11 @@ import java.util.List;
 @Tag(name = "\uD83D\uDC69\u200D\uD83C\uDFEB Instructor Management")
 @RestController
 @RequestMapping("/instructor")
-
+@RequiredArgsConstructor
 public class InstructorRestController {
 
     private final IInstructorServices instructorServices;
-    public InstructorRestController(IInstructorServices instructorServices) {
-        this.instructorServices = instructorServices;
-    }
+
     @Operation(description = "Add Instructor")
     @PostMapping("/add")
     public Instructor addInstructor(@RequestBody Instructor instructor){

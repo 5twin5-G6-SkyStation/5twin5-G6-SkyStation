@@ -13,13 +13,11 @@ import java.util.List;
 @Tag(name = "\uD83C\uDFC2 Skier Management")
 @RestController
 @RequestMapping("/skier")
-
+@RequiredArgsConstructor
 public class SkierRestController {
 
     private final ISkierServices skierServices;
-    public SkierRestController(ISkierServices skierServices) {
-        this.skierServices = skierServices;
-    }
+
     @Operation(description = "Add Skier")
     @PostMapping("/add")
     public Skier addSkier(@RequestBody Skier skier){

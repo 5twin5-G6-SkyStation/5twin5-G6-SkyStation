@@ -15,13 +15,11 @@ import java.util.Set;
 @Tag(name = "\uD83D\uDC65 Subscription Management")
 @RestController
 @RequestMapping("/subscription")
-
+@RequiredArgsConstructor
 public class SubscriptionRestController {
 
     private final ISubscriptionServices subscriptionServices;
-    public SubscriptionRestController(ISubscriptionServices subscriptionServices) {
-        this.subscriptionServices = subscriptionServices;
-    }
+
     @Operation(description = "Add Subscription ")
     @PostMapping("/add")
     public Subscription addSubscription(@RequestBody Subscription subscription){

@@ -13,13 +13,11 @@ import java.util.List;
 @Tag(name = "\uD83D\uDCDA Course Management")
 @RestController
 @RequestMapping("/course")
-
+@RequiredArgsConstructor
 public class CourseRestController {
     
     private final ICourseServices courseServices;
-    public CourseRestController(ICourseServices courseServices) {
-        this.courseServices = courseServices;
-    }
+
     @Operation(description = "Add Course")
     @PostMapping("/add")
     public Course addCourse(@RequestBody Course course){
