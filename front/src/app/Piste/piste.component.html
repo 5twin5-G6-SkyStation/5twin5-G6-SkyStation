@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default"
+    data-assets-path="../assets/" data-template="vertical-menu-template-free">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Dashboard - Analytics | Materio - Bootstrap Material Design Admin Template</title>
+
+    <meta name="description" content="" />
+
+
+</head>
+
+<body>
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            <!-- Menu -->
+
+            <app-menu></app-menu>
+            <!-- / Menu -->
+
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- Navbar -->
+
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2>Ajouter une Piste</h2>
+                            <form (ngSubmit)="addPiste()" class="form">
+                                <div class="form-group">
+                                    <label for="nom">Nom de la Piste:</label>
+                                    <input type="text" id="nom" [(ngModel)]="newPiste.namePiste" name="namePiste" required
+                                        class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="color">Couleur:</label>
+                                    <select id="color" [(ngModel)]="newPiste.color" name="color" required class="form-control">
+                                        <option value="GREEN">Vert</option>
+                                        <option value="BLUE">Bleu</option>
+                                        <option value="RED">Rouge</option>
+                                        <option value="BLACK">Noir</option>
+                                    </select>
+                                </div>
+                               
+
+                                <div class="form-group">
+                                    <label for="length">Longueur:</label>
+                                    <input type="number" id="length" [(ngModel)]="newPiste.length" name="length"
+                                        required class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="slope">Pente:</label>
+                                    <input type="number" id="slope" [(ngModel)]="newPiste.slope" name="slope" required
+                                        class="form-control">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Ajouter</button>
+                            </form>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h2>Liste des Pistes</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Couleur</th>
+                                        <th>Longueur</th>
+                                        <th>Pente</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let piste of pistes">
+                                        <td>{{ piste.namePiste }}</td>
+                                        <td>{{ piste.color }}</td>
+                                        <td>{{ piste.length }}</td>
+                                        <td>{{ piste.slope }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-backdrop fade"></div>
+
+                <!-- Overlay -->
+                <div class="layout-overlay layout-menu-toggle"></div>
+                <!-- / Layout wrapper -->
+                <!-- Core JS -->
+                <!-- build:js assets/vendor/js/core.js -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
