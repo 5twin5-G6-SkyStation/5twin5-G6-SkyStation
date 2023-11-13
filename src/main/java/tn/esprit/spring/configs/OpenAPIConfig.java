@@ -1,4 +1,4 @@
-package tn.esprit.spring.configs;
+/**package tn.esprit.spring.configs;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -34,10 +34,5 @@ public class OpenAPIConfig {
     public GroupedOpenApi productPublicApi() {
         return GroupedOpenApi.builder()
                 .group("SKI STATION Management API")
-                .pathsToMatch("/**/**")
-                .pathsToExclude("**")
-                .build();
-    }
+*/
 
-
-}

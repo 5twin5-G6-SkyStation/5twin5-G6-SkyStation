@@ -1,121 +1,87 @@
-    pipeline{
+pipeline {
     agent any
 
-
-
     stages {
-
-
         stage('Getting project from Git') {
-            steps{
-      			checkout([$class: 'GitSCM', branches: [[name: '*/hajerhajmeftah-5twin5-G6']],
-			extensions: [],
-			userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/hajerhajmeftah-5twin5-G6']],
+                    extensions: [],
+                    userRemoteConfigs: [[url: 'https://github.com/5twin5-G6-SkyStation/5twin5-G6-SkyStation.git']]])
             }
         }
 
-
-       stage('Cleaning the project') {
-            steps{
-                	sh "mvn -B -DskipTests clean  "
+        stage('Cleaning the project') {
+            steps {
+                sh "mvn -B -DskipTests clean"
             }
         }
-
-
 
         stage('Artifact Construction') {
-            steps{
-                	sh "mvn -B -DskipTests package "
+            steps {
+                sh "mvn -B -DskipTests package"
             }
         }
 
-
-/*
-         stage('Unit Tests') {
-            steps{
-               		 sh "mvn test "
+        // Uncomment the following stage if needed
+        /*
+        stage('Unit Tests') {
+            steps {
+                sh "mvn test"
             }
         }
-*/
-
+        */
 
         stage('Code Quality Check via SonarQube') {
-            steps{
-
-             		sh "mvn clean verify sonar:sonar -Dsonar.projectKey=skier -Dsonar.projectName='skier' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_b0d0a6cd39e09351fbc8879810bf4a1c9fef6b58"
-
+            steps {
+                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=skier -Dsonar.projectName='skier' -Dsonar.host.url=http://172.10.0.140:9000 -Dsonar.token=sqp_b0d0a6cd39e09351fbc8879810bf4a1c9fef6b58"
             }
         }
-
 
         stage('Publish to Nexus') {
             steps {
-
-
-        sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
-
-
+                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
             }
         }
 
-    stage('Build Docker Image') {
-                      steps {
-                          script {
-                            sh 'docker build -t hajer05/spring-app-twin:latest .'
-                          }
-                      }
-                  }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t hajermeftah-g6 .'
+                }
+            }
+        }
 
-                
-	    
-	                      stage('Push Docker Image') {
-                                        steps {
-                                          script{ 
-                                             sh'echo"16Hm@1999"| docker login --username"hajer05" --password-stdin'
-                                             sh'docker tag hajerhajmeftah-5twin5-G6/ devops:latest'
-					 sh 'docker push hajer05/spring-app-twin:latest'
-                                             }
-                                   
-                                            }
-		  }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh 'echo "16Hm@1999" | docker login --username "hajer05" --password-stdin'
+                    sh 'docker tag hajermeftah-g6 hajer05/devops:latest'
+                    sh 'docker push hajer05/devops'
+                }
+            }
+        }
 
-                 stage('Docker Compose')
-                     steps{ sh'docker compose up -d'}
+        stage('Docker Compose') {
+            steps {
+                sh 'docker compose up -d'
+            }
+        }
 
-                   stage('Notification by Email') {
-                      steps {
-                                mail bcc: '',
-                                     body: '''Hi Welcome to Jenkins email alerts Thanks Hajer haj meftah''',
-                                     subject: 'Jenkins Job',
-                                     to: 'hajer.hajmeftah@esprit.tn'
-                                 }
-                             }
-
-		   stage('Run Spring && MySQL Containers') {
-                                steps {
-                                    script {
-                                      sh 'docker compose up -d'
-                                    }
-                                }
-                            }
-
-	    
+        stage('Notification by Email') {
+            steps {
+                mail bcc: '',
+                    body: 'Hi Welcome to Jenkins email alerts Thanks Hajer haj meftah',
+                    subject: 'Jenkins Job',
+                    to: 'hajer.hajmeftah@esprit.tn'
+            }
+        }
 
 
-
-     
-}
-
-	    
-        post {
-
-
-       always {
-            cleanWs()
-       }
     }
 
-    
-	
+    post {
+        always {
+            cleanWs()
+        }
+    }
 }
-       

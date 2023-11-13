@@ -1,8 +1,5 @@
-FROM maven:3.8.2-jdk-8
-
-WORKDIR /spring-app
-COPY . .
-RUN mvn clean install -Dmaven.test.skip
-
-CMD mvn spring-boot:run
+FROM openjdk:8
+EXPOSE 8089
+ADD target/gestion-station-ski-0.0.1-SNAPSHOT.jar skitest.jar
+ENTRYPOINT ["java", "-jar", "/skitest.jar"]
 
