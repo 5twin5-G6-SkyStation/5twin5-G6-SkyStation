@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+
+  StationSki:
+    container_name: ski-station
+    build: .\5twin5-G6-SkyStation
+    ports:
+      - "8089:8089"
+    hostname: ski-station
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3306/stationSki?createDatabaseIfNotExist=true
+    image: "ski-station"
+    depends_on:
+      - docker-mysql
+
+  
+  docker-mysql:
+    image: "mysql:8"
+    environment:
+      - spring.datasource.username=root
+      - MYSQL_ROOT_PASSWORD=AZaz123456789
+      - MYSQL_DATABASE=stationSki
+    ports:
+      - "3306:3306"
+
+
