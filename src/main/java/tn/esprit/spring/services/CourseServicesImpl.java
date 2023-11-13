@@ -70,5 +70,21 @@ public class CourseServicesImpl implements  ICourseServices{
         }
     }
 
+    @Override
+    public boolean deleteCourse(Long numCourse) {
+        try {
+            // log course num to retrieve
+            logger.info(numCourse.toString());
+            courseRepository.deleteById(numCourse);
+
+            return true;
+
+        } catch (Exception ex) {
+            // log the exception message
+            logger.error(ex.getMessage());
+            return  false;
+        }
+    }
+
 
 }
