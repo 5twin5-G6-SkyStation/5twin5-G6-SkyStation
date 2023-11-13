@@ -8,7 +8,7 @@ services:
     hostname: ski-station
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3306/stationSki?createDatabaseIfNotExist=true
-    image: "ski-station"
+    image: "wajihabidi/wajihabidi-5twin5-g6:SkiStation"
     depends_on:
       - docker-mysql
 
