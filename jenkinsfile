@@ -83,7 +83,7 @@ pipeline {
                          body: 'the pipeline is done !',
                          cc: '', from: '', replyTo: '',
                          subject: 'Jenkins Email Notification',
-                         to: 'hajer.hajmeftah@esprit.tn'
+                         to: 'hajerhajmeftah@gmail.com'
                     }
 
                     }
