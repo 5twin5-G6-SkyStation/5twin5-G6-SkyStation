@@ -82,7 +82,7 @@ pipeline {
             }
         }
 
-        stage('login dockerhub') {
+        stage('login dockerhub for front') {
             steps {
                 sh 'docker login -u widedgh --password dckr_pat_R-IkFsccABvzTdTkyotJyPfcQD0'
             }
