@@ -38,7 +38,7 @@ services:
     user: root
 
   angular-app:
-    image: amirovvv/angular-app-twin:amirjebari-5twin5-G6
+    image: amirovvv/spring-app:amirjebari-5twin5-G6
     ports:
       - "4200:80"
     depends_on:
