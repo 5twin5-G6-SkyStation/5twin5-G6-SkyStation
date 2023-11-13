@@ -63,7 +63,7 @@ pipeline{
 stage('Build Docker Image') {
                       steps {
                           script {
-                         //   sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6V1 .'
+                            sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6V1 .'
                           }
                       }
                   }
@@ -71,13 +71,13 @@ stage('Build Docker Image') {
                   stage('login dockerhub') {
                                         steps {
                                      // sh 'echo dckr_pat_-SnwrdC_ELsL6it2JT6cgIcAlrs | docker login -u azizbenhaha --password-stdin'
-			//	sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
+				sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
                                             }
 		  }
 	    
 	                      stage('Push Docker Image') {
                                         steps {
-                                   //sh 'docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6V1'
+                                   sh 'docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6V1'
                                             }
 		  }
 
