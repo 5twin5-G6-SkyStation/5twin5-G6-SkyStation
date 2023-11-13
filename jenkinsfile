@@ -72,7 +72,7 @@
                                         steps {
                                           script{ 
                                              sh'echo "16Hm@1999" | docker login --username "hajer05" --password-stdin'
-                                             sh'docker tag hajerhajmeftah-5twin5-G6/ devops:latest'
+                                             sh'docker tag hajerhajmeftah-5twin5-g6/ devops:latest'
 					 sh 'docker push hajer05/spring-app-twin:latest'
                                              }
                                    
