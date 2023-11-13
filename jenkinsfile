@@ -57,14 +57,14 @@ pipeline {
             }
         }
 
-        stage('Checkout front from Git') {
-            steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: '*/widedgharbi-5twin5-G6']],
-                    userRemoteConfigs: [[url: 'https://github.com/widedgharbi/frontDevops.git']]
-                ])
-            }
+       // stage('Checkout front from Git') {
+        //    steps {
+          //      checkout([
+            //        $class: 'GitSCM',
+              //      branches: [[name:'*/widedgharbi-5twin5-G6']],
+                //    userRemoteConfigs: [[url: 'https://github.com/widedgharbi/frontDevops.git']]
+                //])
+/*            }
         }
         stage('Building front Image') {
             steps {
@@ -85,7 +85,7 @@ pipeline {
                 sh 'docker push widedgh/angular-app:widedgharbi-5twin5-G6'
             }
         }
-
+*/
         stage('Run Spring && MySQL Containers') {
             steps {
                 script {
