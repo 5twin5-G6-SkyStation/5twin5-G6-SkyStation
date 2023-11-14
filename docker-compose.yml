@@ -7,7 +7,7 @@ services:
     ports:
       - "8089:8089"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3306/stationSki?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3307/stationSki?createDatabaseIfNotExist=true
     image: "wajihabidi/wajihabidi-5twin5-g6:SkiStation"
     depends_on:
       - docker-mysql
@@ -21,6 +21,6 @@ services:
       - MYSQL_ROOT_PASSWORD=AZaz123456789
       - MYSQL_DATABASE=stationSki
     ports:
-      - "3306:3306"
+      - "3306:3307"
 
 
