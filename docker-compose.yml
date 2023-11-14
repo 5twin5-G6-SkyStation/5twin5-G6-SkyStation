@@ -2,6 +2,7 @@ version: "3.8"
 services:
 
   StationSki:
+    build: ./
     container_name: ski-station
     ports:
       - "8089:8089"
