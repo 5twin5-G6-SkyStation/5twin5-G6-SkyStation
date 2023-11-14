@@ -6,6 +6,7 @@ services:
     container_name: ski-station
     ports:
       - "8089:8089"
+    restart: on-failure
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/stationSki?createDatabaseIfNotExist=true
     image: "wajihabidi/wajihabidi-5twin5-g6:SkiStation"
