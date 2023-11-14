@@ -5,7 +5,6 @@ services:
     container_name: ski-station
     ports:
       - "8089:8089"
-    hostname: ski-station
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3306/stationSki?createDatabaseIfNotExist=true
     image: "wajihabidi/wajihabidi-5twin5-g6:SkiStation"
@@ -15,6 +14,7 @@ services:
   
   docker-mysql:
     image: "mysql"
+    container_name: mysql
     environment:
       - spring.datasource.username=root
       - MYSQL_ROOT_PASSWORD=AZaz123456789
