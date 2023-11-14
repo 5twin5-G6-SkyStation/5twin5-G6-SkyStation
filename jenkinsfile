@@ -37,7 +37,6 @@ pipeline{
             }
         }
 
-/*
 
          stage('Code Quality Check via SonarQube') {
             steps{
@@ -105,7 +104,7 @@ pipeline{
              }
          }
 
- } */
+ }
 
  /* stage("build and push frontend docker image") {
 

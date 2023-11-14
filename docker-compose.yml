@@ -37,12 +37,12 @@ services:
     tty: true
     user: root
 
-  angular-app:
-    image: amirovvv/spring-app-twin:amirjebari-5twin5-G6
-    ports:
-      - "4200:80"
-    depends_on:
-      - mysqldb
+#  angular-app:
+#    image: amirovvv/spring-app-twin:amirjebari-5twin5-G6
+#    ports:
+#      - "4200:80"
+#    depends_on:
+#      - mysqldb
 
 volumes:
   db:
