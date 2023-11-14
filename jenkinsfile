@@ -94,17 +94,17 @@ pipeline{
 
 
 
-  stage('clone frontend'){
+  /* stage('clone frontend'){
          steps{
              script{
-                   checkout([$class: 'GitSCM', branches: [[name: '*//*  *//* main']], extensions: [], userRemoteConfigs: [[url:"https://github.com/Jebari-Amir/front.git"
+                   checkout([$class: 'GitSCM', branches: [[name: '*//*  *//*  *//*  *//* main']], extensions: [], userRemoteConfigs: [[url:"https://github.com/Jebari-Amir/front.git"
 
 
 ]]])
              }
          }
 
- }
+ } */
 
  /* stage("build and push frontend docker image") {
 
