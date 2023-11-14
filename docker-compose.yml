@@ -14,7 +14,7 @@ services:
 
   
   docker-mysql:
-    image: "mysqlIMG"
+    image: "mysql:8"
     container_name: mysql-docker
     environment:
       - spring.datasource.username=root
