@@ -62,7 +62,7 @@ pipeline{
  stage('Build Docker Image') {
                       steps {
                           script {
-                            sh 'docker build -t mariemmm935/spring-app:mariemdevops .'
+                            sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6V1 .'
                           }
                       }
                   }
@@ -70,14 +70,14 @@ pipeline{
                   stage('login dockerhub') {
                                         steps {
                                      // sh 'echo dckr_pat_-SnwrdC_ELsL6it2JT6cgIcAlrs | docker login -u azizbenhaha --password-stdin'
-				sh 'docker login -u mariemmm935 --password dckr_pat_PWrzv5C_U5p9vuubMxCmZYi7dTY'
+				sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
                                             }
 		  }
 	    
 	                      stage('Push Docker Image') {
                                         steps {
                                         echo"docker push"
-                            sh 'docker build -t mariemmm935/spring-app:mariemdevops .'
+                                                                    sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6V1 .'
 
                                  //  sh 'docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6V1'
                                             }
@@ -102,9 +102,9 @@ pipeline{
             steps {
                 script {
 
-             sh 'docker login -u mariemmm935 --password dckr_pat_PWrzv5C_U5p9vuubMxCmZYi7dTY'
+             sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
 
-             sh "docker push mariemmm935/spring-app:mariemdevopsfront"
+             sh "docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6"
 
                 }
             }
@@ -119,7 +119,7 @@ pipeline{
 	    stage('Build Frontend Docker Image') {
                       steps {
                           script {
-                            sh 'docker build -t mariemmm935/spring-app:mariemdevopsfront .'
+                            sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6 .'
                           }
                       }
                   }
@@ -130,9 +130,9 @@ pipeline{
             steps {
                 script {
 
-             sh 'docker login -u mariemmm935 --password dckr_pat_PWrzv5C_U5p9vuubMxCmZYi7dTY'
+             sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
 
-             sh "docker push mariemmm935/spring-app:mariemdevopsfront"
+             sh "docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6"
 
                 }
             }
