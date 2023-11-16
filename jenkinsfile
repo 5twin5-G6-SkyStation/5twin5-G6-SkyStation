@@ -77,6 +77,8 @@ pipeline{
 	                      stage('Push Docker Image') {
                                         steps {
                                         echo"docker push"
+                                                                    sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6V1 .'
+
                                  //  sh 'docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6V1'
                                             }
 		  }
