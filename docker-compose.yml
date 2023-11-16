@@ -40,9 +40,9 @@ services:
   angular-app:
     image:  toumi15/front-app:Toumi
     ports:
-     - "4200:80"  # Adapter le port selon les spécifications de votre application Angular
+      - "4200:80"  # Adapter le port selon les spécifications de votre application Angular
     depends_on:
-     - spring-app
+      - mysqldb
 
 volumes:
   db:
