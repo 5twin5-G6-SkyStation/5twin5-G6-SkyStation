@@ -81,11 +81,71 @@ pipeline{
 		  }
 
 
+ stage('clone frontend'){
+         steps{
+             script{
+                   checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url:"https://github.com/Jebari-Amir/front.git"
+
+
+]]])
+             }
+         }
+
+ }
+
+ stage("build and push frontend docker image") {
+
+
+            steps {
+                script {
+
+             sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
+
+             sh "docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6"
+
+                }
+            }
+
+
+
+
+            }
+
+
+
+	    stage('Build Frontend Docker Image') {
+                      steps {
+                          script {
+                            sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6 .'
+                          }
+                      }
+                  }
+
+ stage("Push Frontend Docker image") {
+
+
+            steps {
+                script {
+
+             sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
+
+             sh "docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6"
+
+                }
+            }
+
+
+
+
+            }
+
 
 		   stage('Run Spring && MySQL Containers') {
                                 steps {
                                     script {
-                                      sh 'docker-compose up -d'
+                                                                          echo "MySql"
+
+                                    //  sh 'docker-compose up -d'
                                     }
                                 }
                             }
@@ -100,21 +160,21 @@ pipeline{
 	    
         post {
 		success{
-		mail bcc: '', body: '''Dear Amir Jebari,
+		mail bcc: '', body: '''Dear Mariem,
 we are happy to inform you that your pipeline build was successful. 
 Great work ! 
--Jenkins Team-''', cc: '', from: 'amir.jbari@esprit.tn', replyTo: '', subject: 'Build Finished - Success', to: 'amir.jbari@esprit.tn'
+-Jenkins Team-''', cc: '', from: 'mariem.boughanmi@esprit.tn', replyTo: '', subject: 'Build Finished - Success', to: 'mariem.boughanmi@esprit.tn'
 		}
 		
 		failure{
-mail bcc: '', body: '''Dear Amir Jebari,
+mail bcc: '', body: '''Dear mariem ,
 we are sorry to inform you that your pipeline build failed. 
 Keep working ! 
--Jenkins Team-''', cc: '', from: 'amir.jbari@esprit.tn', replyTo: '', subject: 'Build Finished - Failure', to: 'amir.jbari@esprit.tn'
+-Jenkins Team-''', cc: '', from: 'mariem.boughanmi@esprit.tn', replyTo: '', subject: 'Build Finished - Failure', to: 'mariem.boughanmi@esprit.tn'
 		}
 
        always {
-		emailext attachLog: true, body: '', subject: 'Build finished',from: 'amir.jbari@esprit.tn' , to: 'amir.jbari@esprit.tn'
+		emailext attachLog: true, body: '', subject: 'Build finished',from: 'mariem.boughanmi@esprit.tn' , to: 'mariem.boughanmi@esprit.tn'
             cleanWs()
        }
     }
