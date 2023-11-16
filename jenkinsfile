@@ -51,7 +51,7 @@ pipeline{
             steps {
 
 
-  sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=maven-releases -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
+  sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=gestion-station-ski -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=* -Durl=http://172.10.0.140:8081/repository/maven-releases/ -Dfile=target/gestion-station-ski-1.0.jar'
 
 
             }
@@ -79,96 +79,6 @@ pipeline{
                                    sh 'docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6V1'
                                             }
 		  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* stage('clone frontend'){
-         steps{
-             script{
-                   checkout([$class: 'GitSCM', branches: [[name: '*//*  *//*  *//*  *//* main']], extensions: [], userRemoteConfigs: [[url:"https://github.com/Jebari-Amir/front.git"
-
-
-]]])
-             }
-         }
-
- } */
-
- /* stage("build and push frontend docker image") {
-
-
-            steps {
-                script {
-
-             sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
-
-             sh "docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6"
-
-                }
-            }
-
-
-
-
-            }
-
-
-
-	    stage('Build Frontend Docker Image') {
-                      steps {
-                          script {
-                            sh 'docker build -t amirovvv/spring-app-twin:amirjebari-5twin5-G6 .'
-                          }
-                      }
-                  }
-
- stage("Push Frontend Docker image") {
-
-
-            steps {
-                script {
-
-             sh 'docker login -u amirovvv --password dckr_pat_LAIjui5cw-3dOSsdt8AoUuVNZ5o'
-
-             sh "docker push amirovvv/spring-app-twin:amirjebari-5twin5-G6"
-
-                }
-            }
-
-
-
-
-            }
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
