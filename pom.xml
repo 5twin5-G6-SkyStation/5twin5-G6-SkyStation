@@ -76,11 +76,11 @@
                 </configuration>
             </plugin>
               <plugins>
-        <plugin>
-            <groupId>org.sonarsource.scanner.maven</groupId>
-            <artifactId>sonar-maven-plugin</artifactId>
-            <version>3.7.0.1746</version> <!-- compatible Java 11 -->
-        </plugin>
+          <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.7.0.1746</version> <!-- compatible Java 11 -->
+            </plugin>
     </plugins>
         </plugins>
     </build>
