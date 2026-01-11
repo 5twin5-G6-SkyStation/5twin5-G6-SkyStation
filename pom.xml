@@ -60,6 +60,11 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+<snapshotRepository>
+    <id>deploymentRepoSnapshots</id>
+    <name>Nexus Snapshots</name>
+    <url>http://localhost:8081/repository/maven-snapshots/</url>
+</snapshotRepository>
 
    <build>
     <plugins>
