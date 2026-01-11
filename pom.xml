@@ -65,6 +65,15 @@
     <name>Nexus Snapshots</name>
     <url>http://localhost:8081/repository/maven-snapshots/</url>
 </snapshotRepository>
+<settings>
+  <servers>
+    <server>
+      <id>maven-releases</id>
+      <username>admin</username>
+      <password>admin</password>
+    </server>
+  </servers>
+</settings>
 
    <build>
     <plugins>
